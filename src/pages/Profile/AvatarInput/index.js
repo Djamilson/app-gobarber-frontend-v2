@@ -37,7 +37,7 @@ export default function AvatarInput() {
     const { id, url } = response.data;
     setFile(id);
     setPreview(url);
-    toast.success(`Avatar adicionado com sucesso!`);
+    toast.warn(`Avatar adicionado com sucesso, agora só clicar em atualizar!`);
   }
 
   return (
