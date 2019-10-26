@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 
 import api from '~/services/api';
+import { toast } from 'react-toastify';
 
 import { Container } from './styles';
 
@@ -36,6 +37,7 @@ export default function AvatarInput() {
     const { id, url } = response.data;
     setFile(id);
     setPreview(url);
+    toast.success(`Avatar adicionado com sucesso!`);
   }
 
   return (
