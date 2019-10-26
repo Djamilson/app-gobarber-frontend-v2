@@ -39,8 +39,7 @@ export default function CompanyPerfil() {
 
   async function loadSchedule() {
     const response = await api.get(`companyperfil/${cod_company}`);
-    console.log('cod_company::', cod_company);
-    console.log('response::', response.data);
+    
     setCompany(response.data);
 
     if (!!response.data.logo) {
