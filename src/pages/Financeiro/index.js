@@ -146,7 +146,7 @@ export default function Financeiro() {
     ///URL.revokeObjectURL(objectUrl);
   }
 
-  async function handleSubmit(data_, { resetForm }) {
+  async function handleSubmit({ resetForm }) {
     const priceFloat = price
       .replace('R$ ', '')
       .replace(/\./g, '')
@@ -170,18 +170,17 @@ export default function Financeiro() {
         resetForm();
         setPreview(null);
       })
-      .catch(err => {
-        const { stack } = err;
+      .catch(error => {
+        const str = error.toString();
+        const final = str.replace(/\D/g, '');
 
-        const finall = stack.split('status code ')[1].substring(0, 3);
-
-        if (finall === '400') {
+        if (final === '400') {
           toast.error(
             'Não foi possível cadastrar o pagamento, tente novamente!'
           );
         }
+
         setPrice('');
-        resetForm();
         setPreview(null);
       });
   }
@@ -244,90 +243,90 @@ export default function Financeiro() {
   }
 
   return loading ? (
-    <ContatinerLoding  loading={loading.toString()}>
-        <Loading />
-      </ContatinerLoding>
+    <ContatinerLoding loading={loading.toString()}>
+      <Loading />
+    </ContatinerLoding>
   ) : (
     <Container>
-           <Logo>
-         <label>
-           {preview ? (
-             <img
-               src={
-                 preview ||
-                 'https://api.adorable.io/avatars/50/abott@adorable.png'
-               }
-               alt=""
-             />
-           ) : (
-             'Click aqui para selecione o comprovante de pagamento'
-           )}
-           <input
-             type="file"
-             id="avatar"
-             accept="image/*"
-             data-file={file}
-             onChange={handleChange}
-           />
-         </label>
-       </Logo>
-       <Form onSubmit={handleSubmit}>
-         <label>Mês do pagamento:</label>
-         <div>
-           <button type="button" onClick={handlePrevDay}>
-             <MdChevronLeft size={36} color="#FFF" />
-           </button>
-           <strong>{dateFormatted}</strong>
-           <button type="button" onClick={handleNextDay}>
-             <MdChevronRight size={36} color="#FFF" />
-           </button>
-         </div>
+      <Logo>
+        <label>
+          {preview ? (
+            <img
+              src={
+                preview ||
+                'https://api.adorable.io/avatars/50/abott@adorable.png'
+              }
+              alt=""
+            />
+          ) : (
+            'Click aqui para selecione o comprovante de pagamento'
+          )}
+          <input
+            type="file"
+            id="avatar"
+            accept="image/*"
+            data-file={file}
+            onChange={handleChange}
+          />
+        </label>
+      </Logo>
+      <Form onSubmit={handleSubmit}>
+        <label>Mês do pagamento:</label>
+        <div>
+          <button type="button" onClick={handlePrevDay}>
+            <MdChevronLeft size={36} color="#FFF" />
+          </button>
+          <strong>{dateFormatted}</strong>
+          <button type="button" onClick={handleNextDay}>
+            <MdChevronRight size={36} color="#FFF" />
+          </button>
+        </div>
 
-         <label>Valor do comprovante de pagamento:</label>
-         <ValorInput>
-           <NumberFormat
-             placeholder="Valor do comprovante de pagamento R$"
-             thousandSeparator="."
-             decimalSeparator=","
-             allowNegative={false}
-             prefix="R$ "
-             decimalScale={2}
-             fixedDecimalScale
-             onChange={e => handleOnChange(e)}
-           />{' '}
-           <label>
-             <FaDollarSign size="19" color="#fff" />
-           </label>
-         </ValorInput>
+        <label>Valor do comprovante de pagamento:</label>
+        <ValorInput>
+          <NumberFormat
+            placeholder="Valor do comprovante de pagamento R$"
+            thousandSeparator="."
+            decimalSeparator=","
+            allowNegative={false}
+            prefix="R$ "
+            decimalScale={2}
+            fixedDecimalScale
+            onChange={e => handleOnChange(e)}
+          />{' '}
+          <label>
+            <FaDollarSign size="19" color="#fff" />
+          </label>
+        </ValorInput>
 
-         <hr />
-         <button type="submit">Salvar comprovante</button>
-       </Form>
+        <hr />
+        <button type="submit">Salvar comprovante</button>
+      </Form>
 
-       <Content>
-         <h2>Mensalidades da Empresa </h2>
-         <hr />
+      <Content>
+        <h2>Mensalidades da Empresa </h2>
+        <hr />
 
-         {!!listFinance && (
-           <FileList
-             handleChamaDelete={handleChamaDelete}
-             files={listFinance}
-             onDelete={handleDelete}
-             onClose={showModal}
-             show={show}
-           />
-         )}
+        {!!listFinance && (
+          <FileList
+            handleChamaDelete={handleChamaDelete}
+            files={listFinance}
+            onDelete={handleDelete}
+            onClose={showModal}
+            show={show}
+          />
+        )}
 
-         <Modal
-           onClose={showModal}
-           show={show}
-           nameDelete={nameDelete}
-           onDelete={() => handleDelete(idParaDelete)}
-           nomeButton={nomeButton}
-         >
-           Tem certeza que deseja deletar esse comprovante?
-         </Modal>
-       </Content>
-     </Container>
+        <Modal
+          onClose={showModal}
+          show={show}
+          nameDelete={nameDelete}
+          onDelete={() => handleDelete(idParaDelete)}
+          nomeButton={nomeButton}
+        >
+          Tem certeza que deseja deletar esse comprovante?
+        </Modal>
+      </Content>
+    </Container>
   );
 }
