@@ -50,7 +50,7 @@ export default function Profile() {
     const data = new FormData();
     data.append('file', e.target.files[0]);
 
-    if (!profile.avatar) {
+    if (!!profile.avatar) {
       console.log('vai funfadddr:', profile);
 
       data.append('id_logo', profile.avatar.id);
