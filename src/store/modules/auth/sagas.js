@@ -34,14 +34,14 @@ export function* signIn({ payload }) {
     const final = str.replace(/\D/g, '');
 
     if (final === '400') {
-      toast.warning('Não foi possível encontra um usuário, crie sua conta!');
+      toast.warn('Não foi possível encontra um usuário, crie sua conta!');
       yield put(signFailure());
       return;
     }
 
     // Make sure the user has been verified
     if (final === '401') {
-      toast.warning(
+      toast.warn(
         'Seu email ainda não foi validado, acesse sua conta de email e confirme a validação do acesso!'
       );
       yield put(signFailure());
@@ -50,7 +50,7 @@ export function* signIn({ payload }) {
 
     // Make sure the user has been verified
     if (final === '402') {
-      toast.warning(
+      toast.warn(
         'No momento esse usuário está desativado, entre em contato com o administrador!'
       );
       yield put(signFailure());
@@ -89,23 +89,36 @@ export function* signUp({ payload }) {
 
     history.push('/dashboard');
   } catch (error) {
-    const { stack } = error;
-    const finall = stack.split('status code ')[1].substring(0, 3);
 
-    if (finall === '400') {
+    const str = error.toString();
+    const final = str.replace(/\D/g, '');
+
+    if (final === '400') {
       toast.error('Campos inválidos!');
+      yield put(signFailure());
+      return;
+
     }
 
-    if (finall === '401') {
+    if (final === '401') {
       toast.error('Usuário já cadastrado!');
+      yield put(signFailure());
+      return;
+
     }
 
-    if (finall === '402') {
+    if (final === '402') {
       toast.error('Não foi possível encontrar o grupo para associar.');
+      yield put(signFailure());
+      return;
+
     }
 
-    if (finall === '403') {
+    if (final === '403') {
       toast.error('Código da empresa está incorreto, tente novamente!');
+      yield put(signFailure());
+      return;
+
     }
 
     yield put(signFailure());

@@ -51,6 +51,7 @@ export default function Token({ match }) {
 
   useEffect(() => {
     loadToken();
+    // eslint-disable-next-line
   }, []);
 
   async function handleSubmit(data) {

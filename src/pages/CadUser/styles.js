@@ -54,7 +54,9 @@ export const Container = styled.div`
 
     button {
       margin: 5px;
-      background: #7159c1;
+
+      background: ${props => (props.visible ? '#ff0000' : '#7159c1')};
+
       font-weight: normal;
       color: #fff;
       border: 0;
@@ -67,6 +69,7 @@ export const Container = styled.div`
         opacity: 0.6;
         background: ${darken(0.03, '#3b9eff')};
       }
+
     }
   }
 

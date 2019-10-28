@@ -10,25 +10,59 @@ export const Container = styled.div`
     flex-direction: column;
     margin-top: 30px;
 
-    input {
-      background: rgba(0, 0, 0, 0.1);
-      border: 0;
-      border-radius: 4px;
-      height: 44px;
-      padding: 0 15px;
+    label {
+      margin-bottom: 0.2rem;
+      position: relative;
       color: #fff;
-      margin: 0 0 10px;
-
-      &::placeholder {
-        color: rgba(255, 255, 255, 0.7);
-      }
+      font-weight: bold;
+      padding-bottom: 2px;
     }
 
-    span {
-      color: #fb6f91;
-      align-self: flex-start;
-      margin: 0 0 10px;
-      font-weight: bold;
+    div {
+      margin-bottom: 0.2rem;
+      position: relative;
+
+      span {
+        font-size: 15px;
+        color: #ff0000;
+      }
+
+      input {
+        width: 100%;
+        box-sizing: border-box;
+        border: none;
+        outline: 0;
+        padding-left: 45px;
+
+        background: rgba(0, 0, 0, 0.1);
+
+        border-radius: 4px;
+        height: 44px;
+        color: #fff;
+        margin: 0 0 10px;
+
+        &::placeholder {
+          color: rgba(255, 255, 255, 0.7);
+        }
+      }
+
+      input + label {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        line-height: 3.8;
+
+        left: 15px;
+      }
+
+      label {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        line-height: 3.8;
+
+        left: 15px;
+      }
     }
 
     hr {
@@ -85,6 +119,38 @@ export const Container = styled.div`
 
     &:hover {
       background: ${darken(0.08, '#f64c75')};
+    }
+  }
+`;
+
+export const Logo = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  label {
+    cursor: pointer;
+    border: 1px dashed #ddd;
+    border-radius: 4px;
+    height: 120px;
+    width: 120px;
+    color: #fff;
+    transition: height 0.2s ease;
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    img {
+      height: 120px;
+      width: 120px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      background: #eee;
+    }
+
+    input {
+      display: none;
     }
   }
 `;

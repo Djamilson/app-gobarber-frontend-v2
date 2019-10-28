@@ -29,11 +29,8 @@ const schema = Yup.object().shape({
 
 export default function SignUp() {
   const dispatch = useDispatch();
-  const loadingdd = useSelector(state => state);
 
   const loading = useSelector(state => state.auth.loading);
-
-  console.log('peguei::: ', loadingdd);
 
   function handleSubmit({ name, email, password, cod_company }) {
     dispatch(signUpRequest(name, email, password, cod_company));

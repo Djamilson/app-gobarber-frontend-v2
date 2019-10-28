@@ -37,7 +37,7 @@ export default function Financeiro() {
   const [listFinance, setListFinance] = useState([]);
 
   const [preview, setPreview] = useState();
-  const [file, setFile] = useState();
+  const [file] = useState();
 
   const [date, setDate] = useState(new Date());
 
@@ -188,6 +188,7 @@ export default function Financeiro() {
 
   useEffect(() => {
     loadFinance();
+    // eslint-disable-next-line
   }, []);
 
   function handleChamaDelete(tempo) {

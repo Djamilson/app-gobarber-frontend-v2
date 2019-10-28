@@ -8,6 +8,12 @@ const INITIAL_STATE = {
 export default function user(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
+
+      case '@user/UPDATE_PROFILE_AVATAR_REQUEST': {
+        draft.loading = true;
+        break;
+      }
+
       case '@user/UPDATE_PROFILE_REQUEST': {
         draft.loading = true;
         break;

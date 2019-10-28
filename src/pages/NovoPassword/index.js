@@ -55,6 +55,7 @@ export default function NovoPassword({ match }) {
 
   useEffect(() => {
     loadToken();
+    // eslint-disable-next-line
   }, []);
 
   async function handleSubmit(data) {
