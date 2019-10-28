@@ -26,12 +26,13 @@ export default function CadUser() {
 
   async function loadSchedule() {
     const response = await api.get(`companies/user/${company_id}`);
-    console.tron.log(response.data);
     setListUser(response.data);
   }
 
   useEffect(() => {
+
     loadSchedule();
+    // eslint-disable-next-line
   }, []);
 
   async function handleDesabled(id) {
@@ -130,12 +131,12 @@ export default function CadUser() {
               <Td>{user.status === true ? 'Ativo' : 'Desativado'}</Td>
               <Td>
 
-                <button type="button"  disabled={handleBoolean(user)}
+                <button type="button" visible={user.status} disabled={handleBoolean(user)}
                   onClick={() => handleChamaDelete(user)}>
                   {' '}
                   {user.status === true ? 'Desativa' : 'Ativar'}{' '}
                 </button>{' '}
-                <button type="button" onClick={() => handleChamaPerfil(user)}>
+                <button type="button"  onClick={() => handleChamaPerfil(user)}>
                   Perfil
                 </button>{' '}
               </Td>

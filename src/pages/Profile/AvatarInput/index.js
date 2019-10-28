@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useField } from '@rocketseat/unform';
 
-import api from '~/services/api';
 import { toast } from 'react-toastify';
+import api from '~/services/api';
 
 import { Container } from './styles';
 
@@ -14,19 +14,21 @@ export default function AvatarInput() {
 
   const ref = useRef();
 
-  const fetchUsers = () => {
-    if (ref.current) {
-      registerField({
-        name: 'avatar_id',
-        ref: ref.current,
-        path: 'dataset.file',
-      });
-    }
-  };
-
   useEffect(() => {
+
+    const fetchUsers = () => {
+      if (ref.current) {
+        registerField({
+          name: 'avatar_id',
+          ref: ref.current,
+          path: 'dataset.file',
+        });
+      }
+    };
+
     fetchUsers();
-  }, []);
+
+  }, [ref, registerField]);
 
   async function handleChange(e) {
     const data = new FormData();

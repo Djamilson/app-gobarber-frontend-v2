@@ -8,13 +8,16 @@ export default function Menu({ profile }) {
   const [group, setGroup] = useState(false);
   const [admin, setAdmin] = useState(false);
 
-  function load() {
-    profile.group_users.forEach(g => {
-      if (g.Group.name === 'role_master') setGroup(true);
-      if (g.Group.name === 'role_administrador') setAdmin(true);
-    });
-  }
+
   useMemo(() => {
+
+    const load = () => {
+        profile.group_users.forEach(g => {
+          if (g.Group.name === 'role_master') setGroup(true);
+          if (g.Group.name === 'role_administrador') setAdmin(true);
+        });
+    };
+
     load();
   }, [profile]);
 

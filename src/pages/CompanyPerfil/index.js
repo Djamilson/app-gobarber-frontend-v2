@@ -39,7 +39,7 @@ export default function CompanyPerfil() {
 
   async function loadSchedule() {
     const response = await api.get(`companyperfil/${cod_company}`);
-    
+
     setCompany(response.data);
 
     if (!!response.data.logo) {
@@ -52,6 +52,7 @@ export default function CompanyPerfil() {
 
   useEffect(() => {
     loadSchedule();
+    // eslint-disable-next-line
   }, []);
 
   async function handleChange(e) {
