@@ -28,6 +28,13 @@ import {
 } from './styles';
 
 export default function FileList({ files, handleChamaDelete }) {
+  function getAvatar(avatar) {
+    if (avatar) return avatar.url;
+
+    return 'https://api.adorable.io/avatars/50/abott@adorable.png';
+  }
+
+
   return (
     <ContainerList>
       <FileHeader>
@@ -40,7 +47,9 @@ export default function FileList({ files, handleChamaDelete }) {
 
       {files.map(uploadedFile => (
         <li key={uploadedFile.id}>
-          <Preview src={uploadedFile.avatar.url} />
+          <Preview
+            src={ getAvatar(uploadedFile.avatar) }
+          />
           <FileInfoPg>
             <div>
               <strong>{uploadedFile.createdAt}</strong>
@@ -70,28 +79,32 @@ export default function FileList({ files, handleChamaDelete }) {
                 <MdCheckCircle size={24} color="#78e5d5" />
               )}
               {uploadedFile.error && <MdError size={24} color="#e57878" />}
+              {uploadedFile.avatar !== null ?  (
+                <>
+                  <a
+                    download={uploadedFile.avatar.path}
+                    href={uploadedFile.avatar.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MdFileDownload
+                      style={{ marginRight: 8 }}
+                      size={24}
+                      color="#222"
+                    />
+                  </a>
 
-              <a
-                download={uploadedFile.avatar.path}
-                href={uploadedFile.avatar.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MdFileDownload
-                  style={{ marginRight: 8 }}
-                  size={24}
-                  color="#222"
-                />
-              </a>
-
-              <a
-                href={uploadedFile.avatar.url}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
-              </a>
-
+                  <a
+                    href={uploadedFile.avatar.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
+                  </a>
+                </>
+              ) : (
+                ''
+              ) }
               <button
                 type="button"
                 onClick={() => handleChamaDelete(uploadedFile)}

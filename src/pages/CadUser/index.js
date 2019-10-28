@@ -131,7 +131,7 @@ export default function CadUser() {
               <Td>{user.status === true ? 'Ativo' : 'Desativado'}</Td>
               <Td>
 
-                <button type="button" visible={user.status} disabled={handleBoolean(user)}
+                <button type="button" visible={user.status.toString()} disabled={handleBoolean(user)}
                   onClick={() => handleChamaDelete(user)}>
                   {' '}
                   {user.status === true ? 'Desativa' : 'Ativar'}{' '}
