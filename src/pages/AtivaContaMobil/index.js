@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import { Link, Redirect } from 'react-router-dom';
+
+import { FaEnvelope } from 'react-icons/fa';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -20,6 +23,7 @@ const schema = Yup.object().shape({
 export default function Token({ match }) {
   const [success, setSuccess] = useState(false);
   const { token } = match.params;
+  const loading = useSelector(state => state.auth.loading);
 
   async function loadToken() {
     await api
@@ -30,6 +34,12 @@ export default function Token({ match }) {
       })
       .catch(err => {
         const { stack } = err;
+        const str = err.toString();
+        console.log('CCCCCC: ', err);
+        const final = str.replace(/\D/g, '');
+
+        console.log('str: ', str);
+
         const finall = stack.split('status code ')[1].substring(0, 3);
 
         if (finall === '401' || finall === '403') {
