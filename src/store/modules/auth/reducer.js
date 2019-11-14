@@ -26,6 +26,13 @@ export default function auth(state = INITIAL_STATE, action) {
         draft.loading = false;
         break;
       }
+
+      case '@user/SIGNUP_FAILURE': {
+        draft.signed = false;
+        draft.loading = false;
+        break;
+      }
+
       case '@auth/SIGN_OUT': {
         draft.token = null;
         draft.signed = false;

@@ -18,6 +18,8 @@ import CompanyPerfil from '~/pages/CompanyPerfil';
 import CadUser from '~/pages/CadUser';
 import Financeiro from '~/pages/Financeiro';
 
+import AtivaContaMobil from '~/pages/AtivaContaContaMobil';
+
 const Routes = () => (
 <Switch>
     <Route exact path="/" component={SignIn} />
@@ -26,6 +28,9 @@ const Routes = () => (
     <Route path="/novopassword/:token" component={NovoPassword} />
 
     <Route path="/confirmation/:token" component={Token} />
+
+    <Route path="/ativacontamobil/:token" component={AtivaContaMobil} />
+
     <Route path="/dashboard" component={Dashboard} isPrivate />
     <Route path="/profile" component={Profile} isPrivate />
     <Route path="/horario" component={Horario} isPrivate />
