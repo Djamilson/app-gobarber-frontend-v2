@@ -43,7 +43,7 @@ export default function Header() {
               src={
                 profile.avatar !== null ? profile.avatar.url : 'https://api.adorable.io/avatars/50/abott@adorable.png'
               }
-              alt="Djamilson Alves"
+              alt="Não tem Avatar"
             />
           </Profile>
           <Badge onClick={handleSignOut} title="Sair">

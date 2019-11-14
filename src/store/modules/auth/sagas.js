@@ -5,6 +5,7 @@ import history from '~/services/history';
 import api from '~/services/api';
 
 import { signInSuccess, signFailure } from './actions';
+import { signInFaileru} from '../user/actions';
 
 export function* signIn({ payload }) {
   try {
@@ -17,10 +18,10 @@ export function* signIn({ payload }) {
 
     const { token, user } = response.data;
 
-    console.log('Meu User: ', user);
-
     if (!user.provider) {
       toast.error('Usuário não é prestador de serviço, acesse o APP!');
+
+      yield put(signFailure());
       return;
     }
 
@@ -95,33 +96,36 @@ export function* signUp({ payload }) {
 
     if (final === '400') {
       toast.error('Campos inválidos!');
-      yield put(signFailure());
+      //yield put(signFailure());
+      yield put(signInFaileru());
       return;
-
     }
 
     if (final === '401') {
       toast.error('Usuário já cadastrado!');
-      yield put(signFailure());
+      yield put(signInFaileru());
+      //yield put(signFailure());
       return;
 
     }
 
     if (final === '402') {
       toast.error('Não foi possível encontrar o grupo para associar.');
-      yield put(signFailure());
+      yield put(signInFaileru());
+      //yield put(signFailure());
       return;
 
     }
 
     if (final === '403') {
       toast.error('Código da empresa está incorreto, tente novamente!');
-      yield put(signFailure());
+      yield put(signInFaileru());
+      //yield put(signFailure());
       return;
 
     }
 
-    yield put(signFailure());
+    yield put(signInFaileru());
   }
 }
 
@@ -142,5 +146,6 @@ export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
+  takeLatest('@user/SIGN_UP_SUCCESS', signUp),
   takeLatest('@auth/SIGN_OUT', signOut),
 ]);

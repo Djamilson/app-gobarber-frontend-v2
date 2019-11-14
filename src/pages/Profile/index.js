@@ -14,7 +14,6 @@ import {
   updateProfileAvatarRequest,
 } from '~/store/modules/user/actions';
 
-import AvatarInput from './AvatarInput';
 import { FaUser, FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
 
 import api from '~/services/api';
@@ -38,7 +37,6 @@ export default function Profile() {
     }
   }
 
-  console.log('profile:::', profile);
   useEffect(() => {
     loadSchedule();
     // eslint-disable-next-line
@@ -51,7 +49,6 @@ export default function Profile() {
     data.append('file', e.target.files[0]);
 
     if (profile.avatar !== null) {
-      console.log('vai funfadddr:', profile);
 
       data.append('id_logo', profile.avatar.id);
       data.append('url_logo', profile.avatar.url);
@@ -68,9 +65,6 @@ export default function Profile() {
           avatar_id: file.data.id,
         });
 
-        console.log('vai funfar:', profile);
-        console.log('vai funfar: File: ', file);
-
         dispatch(updateProfileAvatarRequest(profileNovo));
         setFile(file.data.id);
         setPreview(file.data.url);
@@ -79,7 +73,6 @@ export default function Profile() {
   }
 
   function handleSubmit(data) {
-    console.log('Vai entrar: ', data);
     dispatch(updateProfileRequest(data));
   }
 
