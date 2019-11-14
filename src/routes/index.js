@@ -18,7 +18,7 @@ import CompanyPerfil from '~/pages/CompanyPerfil';
 import CadUser from '~/pages/CadUser';
 import Financeiro from '~/pages/Financeiro';
 
-import AtivaContaMobil from '~/pages/AtivaContaContaMobil';
+import AtivaContaMobil from '~/pages/AtivaContaMobil';
 
 const Routes = () => (
 <Switch>
