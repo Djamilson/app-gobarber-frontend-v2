@@ -29,32 +29,33 @@ export default function Token({ match }) {
     await api
       .get(`confirmation/${token}`)
       .then(res => {
-        setSuccess(true);
         toast.success(res.data.msg);
       })
       .catch(err => {
-        const { stack } = err;
         const str = err.toString();
         console.log('CCCCCC: ', err);
         const final = str.replace(/\D/g, '');
 
-        console.log('str: ', str);
+        setSuccess(true);
 
-        const finall = stack.split('status code ')[1].substring(0, 3);
+        console.log('str: ', final);
 
-        if (finall === '401' || finall === '403') {
+        if (final === '401' || final === '403') {
           toast.warning(
             'Não foi possível encontra um usuário para esse token, crie um novo usuário!'
           );
         }
 
-        if (finall === '402') {
+        if (final === '402') {
           toast.warning('Este email já foi verificado, acesse sua conta!');
-          setSuccess(true);
         }
 
-        if (finall === '403') {
+        if (final === '403') {
           toast.warning('Token expirado, gere novo token, em recuperar senha!');
+        }
+
+        if (final === '404') {
+          toast.warning('Esse token não existe, crie um novo token!');
         }
       });
   }
@@ -77,28 +78,18 @@ export default function Token({ match }) {
         );
       })
       .catch(err => {
-        const { stack } = err;
-        const finall = stack.split('status code ')[1].substring(0, 3);
-
-        if (finall === '401' || finall === '403') {
-          toast.warning(
-            'Não foi possível encontra um usuário, crie sua conta!'
-          );
-        }
+        toast.warning('Não foi possível encontra um usuário, crie sua conta!');
       });
-  }
-
-  if (success) {
-    return <Redirect to="/" />;
   }
 
   return (
     <>
       <img src={logo} alt="GoBarber"></img>
 
+      {success === false ? (<>
       <span> Conta ativada com sucesso! </span>
-      <span> Já pode acessar o APP do GoBarber! </span>
-
+      <span> Já pode acessar o APP do GoBarber! </span></>) : (
+<>
       <span> Ativando sua conta </span>
 
       <Form schema={schema} onSubmit={handleSubmit}>
@@ -113,10 +104,8 @@ export default function Token({ match }) {
           {loading ? 'Carregando ...' : 'Gerar novo token'}
         </button>
 
-        <span>
-          <Link to="/">Já tenho conta</Link>
-        </span>
       </Form>
+  </>    )}
     </>
   );
 }
