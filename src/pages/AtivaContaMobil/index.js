@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { Link, Redirect } from 'react-router-dom';
-
 import { FaEnvelope } from 'react-icons/fa';
 
 import { Form, Input } from '@rocketseat/unform';
@@ -33,12 +31,9 @@ export default function Token({ match }) {
       })
       .catch(err => {
         const str = err.toString();
-        console.log('CCCCCC: ', err);
         const final = str.replace(/\D/g, '');
 
         setSuccess(true);
-
-        console.log('str: ', final);
 
         if (final === '401' || final === '403') {
           toast.warning(
@@ -90,7 +85,7 @@ export default function Token({ match }) {
       <span> Conta ativada com sucesso! </span>
       <span> Já pode acessar o APP do GoBarber! </span></>) : (
 <>
-      <span> Ativando sua conta </span>
+      <span> Crie um novo Token para ativar sua conta </span>
 
       <Form schema={schema} onSubmit={handleSubmit}>
         <div>
