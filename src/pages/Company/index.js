@@ -24,37 +24,34 @@ const schema = Yup.object().shape({
 });
 
 export default function Company() {
-
   async function handleSubmit(data, { resetForm }) {
     await api
       .post(`/companies`, { data })
       .then(() => {
-               toast.success(`Empresa cadastrado com sucesso!`);
+        toast.success(`Empresa cadastrado com sucesso!`);
         resetForm();
       })
-      .catch(err => {
+      .catch(error => {
+        const str = error.toString();
+        const final = str.replace(/\D/g, '');
 
-        const { stack } = err;
-        const finall = stack.split('status code ')[1].substring(0, 3);
-
-        if (finall === '400') {
+        if (final === '400') {
           toast.error('Campos inválidos!');
         }
 
-        if (finall === '401') {
-          toast.error('Não foi possível fazer o cadastro da empresa!');
+        if (final === '401') {
+          toast.error('User already exists');
         }
 
-        if (finall === '402') {
+        if (final === '402') {
           toast.error(
             'Não foi possível adicionar o usuário como administrador do sistema!'
           );
         }
 
-        if (finall === '403') {
+        if (final === '403') {
           toast.error('Não foi possível associar o usuário ao grupo!');
         }
-
       });
   }
 
