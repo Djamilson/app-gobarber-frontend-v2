@@ -81,26 +81,30 @@ export default function Token({ match }) {
     <>
       <img src={logo} alt="GoBarber"></img>
 
-      {success === false ? (<>
-      <span> Conta ativada com sucesso! </span>
-      <span> Já pode acessar o APP do GoBarber! </span></>) : (
-<>
-      <span> Crie um novo Token para ativar sua conta </span>
+      {success === false && (
+        <>
+          <span> Conta ativada com sucesso! </span>
+          <span> Já pode acessar o APP do GoBarber! </span>
+        </>
+      )}
+      {success === true && (
+        <>
+          <span> Crie um novo Token para ativar sua conta </span>
 
-      <Form schema={schema} onSubmit={handleSubmit}>
-        <div>
-          <Input name="email" type="email" placeholder="Seu email" />
-          <label>
-            <FaEnvelope size="19" color="#fff" />
-          </label>
-        </div>
+          <Form schema={schema} onSubmit={handleSubmit}>
+            <div>
+              <Input name="email" type="email" placeholder="Seu email" />
+              <label>
+                <FaEnvelope size="19" color="#fff" />
+              </label>
+            </div>
 
-        <button type="submit">
-          {loading ? 'Carregando ...' : 'Gerar novo token'}
-        </button>
-
-      </Form>
-  </>    )}
+            <button type="submit">
+              {loading ? 'Carregando ...' : 'Gerar novo token'}
+            </button>
+          </Form>
+        </>
+      )}
     </>
   );
 }

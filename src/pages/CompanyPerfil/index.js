@@ -12,7 +12,6 @@ import {
 } from 'react-icons/fa';
 
 import { toast } from 'react-toastify';
-
 import api from '~/services/api';
 
 import { Container, Content, Logo } from './styles';
