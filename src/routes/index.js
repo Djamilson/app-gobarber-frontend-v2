@@ -21,7 +21,7 @@ import Financeiro from '~/pages/Financeiro';
 import AtivaContaMobil from '~/pages/AtivaContaMobil';
 
 const Routes = () => (
-<Switch>
+  <Switch>
     <Route exact path="/" component={SignIn} />
     <Route path="/register" component={SignUp} />
     <Route path="/recuperarpassword" component={RecuperarPassword} />
@@ -39,9 +39,7 @@ const Routes = () => (
     <Route path="/financeiro" component={Financeiro} isPrivate />
 
     <Route path="/companyPerfil" component={CompanyPerfil} isPrivate />
-
-</Switch>
-
+  </Switch>
 );
 
 export default Routes;

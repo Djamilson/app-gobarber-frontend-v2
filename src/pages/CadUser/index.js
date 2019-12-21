@@ -30,34 +30,34 @@ export default function CadUser() {
   }
 
   useEffect(() => {
-
     loadSchedule();
     // eslint-disable-next-line
   }, []);
 
   async function handleDesabled(id) {
+    await api
+      .put(`/companies/user/${id}`)
+      .then(() => {
+        loadSchedule();
+        toast.success(`Usuário editado com sucesso!`);
+      })
+      .catch(err => {
+        const { stack } = err;
+        const finall = stack.split('status code ')[1].substring(0, 3);
 
-    await api.put(`/companies/user/${id}`).then(() => {
-      loadSchedule();
-      toast.success(`Usuário editado com sucesso!`);
-    }).catch(err => {
-      const { stack } = err;
-      const finall = stack.split('status code ')[1].substring(0, 3);
+        if (finall === '400') {
+          toast.error('Não foi possível alterar o usuário, tente novamente!');
+        }
+        console.tron.log('Erro: ', stack);
 
-      if (finall === '400') {
-        toast.error('Não foi possível alterar o usuário, tente novamente!');
-      }
-      console.tron.log('Erro: ', stack);
-
-      if (finall === '401') {
-        toast.error(
-          'Esse usuário não pode ser desabilitado, pois é o usuário Master do Sistema!'
-        );
-      }
-
-    });
+        if (finall === '401') {
+          toast.error(
+            'Esse usuário não pode ser desabilitado, pois é o usuário Master do Sistema!'
+          );
+        }
+      });
     showModal();
-  };
+  }
 
   function showModal() {
     setShow(!show);
@@ -81,18 +81,26 @@ export default function CadUser() {
   }
 
   async function handleChamaPerfil(user) {
-
     const { data } = await api.get('groups');
 
-    const checkboxFields = data.map( e1 => {
-
+    const checkboxFields = data.map(e1 => {
       for (const k of user.group_users.values()) {
         if (e1.description === k.Group.description) {
-            return ({...e1, checked:true, user_id:user.id, admin_master: user.admin_master })
-          }
+          return {
+            ...e1,
+            checked: true,
+            user_id: user.id,
+            admin_master: user.admin_master,
+          };
+        }
       }
 
-      return ({...e1, checked: false, user_id:user.id, admin_master: user.admin_master})
+      return {
+        ...e1,
+        checked: false,
+        user_id: user.id,
+        admin_master: user.admin_master,
+      };
     });
 
     setUserSelect(checkboxFields);
@@ -121,28 +129,34 @@ export default function CadUser() {
           {listUser.map((user, ind) => (
             <Tr key={user.id}>
               <Td>{1 + ind}</Td>
-          <Td>{user.name} {user.admin_master === true ? '[Master]':''}</Td>
+              <Td>
+                {user.name} {user.admin_master === true ? '[Master]' : ''}
+              </Td>
               <Td>
                 {user.group_users.map(group => (
-                  <span key={group.id}>{group.Group.description } {''} </span>
+                  <span key={group.id}>
+                    {group.Group.description} {''}{' '}
+                  </span>
                 ))}
               </Td>
 
               <Td>{user.status === true ? 'Ativo' : 'Desativado'}</Td>
               <Td>
-
-                <button type="button" visible={user.status.toString()} disabled={handleBoolean(user)}
-                  onClick={() => handleChamaDelete(user)}>
+                <button
+                  type="button"
+                  visible={user.status.toString()}
+                  disabled={handleBoolean(user)}
+                  onClick={() => handleChamaDelete(user)}
+                >
                   {' '}
                   {user.status === true ? 'Desativa' : 'Ativar'}{' '}
                 </button>{' '}
-                <button type="button"  onClick={() => handleChamaPerfil(user)}>
+                <button type="button" onClick={() => handleChamaPerfil(user)}>
                   Perfil
                 </button>{' '}
               </Td>
             </Tr>
           ))}
-
         </Tbody>
       </Table>
       <Modal
