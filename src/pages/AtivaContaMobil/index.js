@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { FaEnvelope } from 'react-icons/fa';
+import { MdChevronLeft } from 'react-icons/md';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
@@ -23,7 +24,7 @@ export default function Token({ match }) {
   const { token } = match.params;
   const loading = useSelector(state => state.auth.loading);
 
-  async function loadToken() {
+  async function ativaConta() {
     await api
       .get(`confirmation/${token}`)
       .then(res => {
@@ -56,8 +57,7 @@ export default function Token({ match }) {
   }
 
   useEffect(() => {
-    loadToken();
-    // eslint-disable-next-line
+    ativaConta();
   }, []);
 
   async function handleSubmit(data) {
@@ -90,6 +90,12 @@ export default function Token({ match }) {
       {success === true && (
         <>
           <span> Crie um novo Token para ativar sua conta </span>
+
+          <button type="button" onClick={ativaConta}>
+            {loading ? 'Carregando ...' : 'Ativa conta'}
+
+            <MdChevronLeft size={36} color="#FFF" />
+          </button>
 
           <Form schema={schema} onSubmit={handleSubmit}>
             <div>
