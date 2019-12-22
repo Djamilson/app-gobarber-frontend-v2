@@ -28,6 +28,7 @@ export default function Token({ match }) {
     await api
       .get(`confirmation/${token}`)
       .then(res => {
+        console.log('===>>>>>: ',res.data);
         toast.success(res.data.msg);
       })
       .catch(err => {
@@ -55,10 +56,10 @@ export default function Token({ match }) {
         }
       });
   }
-
+/*
   useEffect(() => {
     ativaConta();
-  }, []);
+  }, []);*/
 
   async function handleSubmit(data) {
     const { email } = data;
@@ -87,15 +88,16 @@ export default function Token({ match }) {
           <span> Já pode acessar o APP do GoBarber! </span>
         </>
       )}
+
+      <button type="button" onClick={ativaConta}>
+        {loading ? 'Carregando ...' : 'Ativa conta'}
+
+        <MdChevronLeft size={36} color="#FFF" />
+      </button>
+
       {success === true && (
         <>
           <span> Crie um novo Token para ativar sua conta </span>
-
-          <button type="button" onClick={ativaConta}>
-            {loading ? 'Carregando ...' : 'Ativa conta'}
-
-            <MdChevronLeft size={36} color="#FFF" />
-          </button>
 
           <Form schema={schema} onSubmit={handleSubmit}>
             <div>
