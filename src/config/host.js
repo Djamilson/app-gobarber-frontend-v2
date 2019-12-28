@@ -4,5 +4,5 @@ export default {
   PORT: 3000,
   // WEBHOST: '138.197.79.44',
   // WEBHOST: '192.168.10.104',
-  WEBHOST: '165.22.41.150',
+  WEBHOST: '157.245.215.93',
 };
