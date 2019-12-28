@@ -11,9 +11,6 @@ import { Container, Content } from './styles';
 
 const schema = Yup.object().shape({
   name_company: Yup.string().required('O nome da empresa é obrigatório'),
-  email_company: Yup.string()
-    .email('Insira um e-mail válido')
-    .required('Email da empresa é obrigatorio'),
   name: Yup.string().required('O nome do adminstrador é obrigatório'),
   email: Yup.string()
     .email('Insira um e-mail válido')
@@ -64,12 +61,7 @@ export default function Company() {
         <hr />
         <h2> Dados empresa </h2>
         <Input name="name_company" placeholder="Nome da empresa" />
-        <Input
-          name="email_company"
-          type="email"
-          placeholder="Email da empresa"
-        />
-
+      
         <hr />
 
         <h2> Dados do administrador </h2>
