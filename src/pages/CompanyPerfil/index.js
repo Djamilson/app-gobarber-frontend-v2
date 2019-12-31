@@ -37,13 +37,15 @@ export default function CompanyPerfil() {
   const [file, setFile] = useState();
 
   async function loadSchedule() {
-    console.log('useEffect Preview::', preview)
+    console.log('useEffect Preview::', preview);
     const response = await api.get(`companyperfil/${cod_company}`);
 
     setCompany(response.data);
 
     if (!!response.data.logo) {
       const { id, url } = response.data.logo;
+
+      console.log('Detro do if useEffect Preview::', response.data);
 
       setFile(id);
       setPreview(url);
@@ -70,13 +72,13 @@ export default function CompanyPerfil() {
         setFile(d.id);
         setPreview(d.url);
 
-    console.log('if Preview::', preview)
+        console.log('if Preview::', preview);
       });
     } else {
       await api.post('files', data).then(async file => {
         const dados = { id_logo: file.data.id, id_company: company.id };
 
-        console.log('else Preview::', preview)
+        console.log('else Preview::', preview);
         await api.put('companyfiles', dados).then(() => {
           toast.success(`Logo editado com sucesso!`);
         });
@@ -145,7 +147,7 @@ export default function CompanyPerfil() {
           />
         </label>
       </Logo>
-      <div >
+      <div>
         <img src={preview} alt="icon" width="200" />
       </div>
 
