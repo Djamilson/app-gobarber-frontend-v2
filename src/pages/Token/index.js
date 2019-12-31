@@ -28,9 +28,9 @@ export default function Token({ match }) {
         setSuccess(true);
         toast.success(res.data.msg);
       })
-      .catch(err => {
-        const { stack } = err;
-        const finall = stack.split('status code ')[1].substring(0, 3);
+      .catch(error => {
+        const str = error.toString();
+        const finall = str.replace(/\D/g, '');
 
         if (finall === '401' || finall === '403') {
           toast.warning(

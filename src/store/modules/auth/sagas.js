@@ -5,12 +5,15 @@ import history from '~/services/history';
 import api from '~/services/api';
 
 import { signInSuccess, signFailure } from './actions';
-import { signInFaileru} from '../user/actions';
+import { signInFaileru } from '../user/actions';
+
+function navPageActiveCount(email) {
+  history.push(`/activeaccount/${email}`);
+}
 
 export function* signIn({ payload }) {
+  const { email, password } = payload;
   try {
-    const { email, password } = payload;
-
     const response = yield call(api.post, 'sessions', {
       email,
       password,
@@ -45,6 +48,9 @@ export function* signIn({ payload }) {
       toast.warn(
         'Seu email ainda não foi validado, acesse sua conta de email e confirme a validação do acesso!'
       );
+
+      navPageActiveCount(email);
+
       yield put(signFailure());
       return;
     }
@@ -87,10 +93,8 @@ export function* signUp({ payload }) {
     toast.success(
       `Cadastro efetuado com sucesso, acesse o email ${email} para a tivar sua conta!`
     );
-
-    history.push('/dashboard');
+    navPageActiveCount(email);
   } catch (error) {
-
     const str = error.toString();
     const final = str.replace(/\D/g, '');
 
@@ -106,7 +110,6 @@ export function* signUp({ payload }) {
       yield put(signInFaileru());
       //yield put(signFailure());
       return;
-
     }
 
     if (final === '402') {
@@ -114,7 +117,6 @@ export function* signUp({ payload }) {
       yield put(signInFaileru());
       //yield put(signFailure());
       return;
-
     }
 
     if (final === '403') {
@@ -122,7 +124,6 @@ export function* signUp({ payload }) {
       yield put(signInFaileru());
       //yield put(signFailure());
       return;
-
     }
 
     yield put(signInFaileru());

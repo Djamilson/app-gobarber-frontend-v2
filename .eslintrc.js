@@ -23,7 +23,6 @@ module.exports = {
   plugins: [
     'react',
     'import-helpers',
-    '@typescript-eslint',
     'jsx-a11y',
     'import',
     'react-hooks',

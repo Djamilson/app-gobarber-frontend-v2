@@ -22,7 +22,6 @@ const schema = Yup.object().shape({
 
 export default function Horario() {
   const [loading, setLoading] = useState(false);
-
   const [horario, setHorario] = useState([]);
 
   async function loadHorario() {

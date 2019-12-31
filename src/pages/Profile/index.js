@@ -39,7 +39,6 @@ export default function Profile() {
 
   useEffect(() => {
     loadSchedule();
-    // eslint-disable-next-line
   }, []);
 
   async function handleChange(e) {
@@ -49,7 +48,6 @@ export default function Profile() {
     data.append('file', e.target.files[0]);
 
     if (profile.avatar !== null) {
-
       data.append('id_logo', profile.avatar.id);
       data.append('url_logo', profile.avatar.url);
       data.append('path_logo', profile.avatar.path);

@@ -17,24 +17,21 @@ export function* updateProfile({ payload }) {
       rest.oldPassword ? rest : {}
     );
 
-    console.log('Profile vai salvar: ', profile);
-
     const response = yield call(api.put, 'users', profile);
 
     toast.success('Perfil atualizado com sucesso!');
-    console.log('Retorno::: ', response);
+
     yield put(updateProfileSuccess(response.data));
   } catch (error) {
     const str = error.toString();
     const final = str.replace(/\D/g, '');
-    console.log('Detrno do Saga::: ', error);
+
     if (final === '400') {
       toast.error('Campos inválidos!');
       yield put(updateProfilefailure());
       return;
     }
 
-    console.log('Error::: ', error);
     toast.error('Erro ao atualizar o perfil, confira os seus dados!');
 
     yield put(updateProfilefailure());
@@ -44,7 +41,6 @@ export function* updateProfile({ payload }) {
 export function* updateProfileAvatar({ payload }) {
   try {
     const { avatar_id } = payload.data;
-    console.log('Estou aqui: ', payload.data);
 
     const profile = Object.assign({
       avatar_id,

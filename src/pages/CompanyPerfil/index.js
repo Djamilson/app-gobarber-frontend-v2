@@ -51,7 +51,6 @@ export default function CompanyPerfil() {
 
   useEffect(() => {
     loadSchedule();
-    // eslint-disable-next-line
   }, []);
 
   async function handleChange(e) {
@@ -93,11 +92,9 @@ export default function CompanyPerfil() {
 
         loadSchedule();
       })
-      .catch(err => {
-        console.tron.log('Errrou aqui: ', err);
-
-        const { stack } = err;
-        const finall = stack.split('status code ')[1].substring(0, 3);
+      .catch(error => {
+        const str = error.toString();
+        const finall = str.replace(/\D/g, '');
 
         if (finall === '400') {
           toast.error('Campos inválidos!');
@@ -126,26 +123,26 @@ export default function CompanyPerfil() {
       </Content>
 
       <Logo>
-          <label>
-            {preview ? (
-              <img
-                src={
-                  preview ||
-                  'https://api.adorable.io/avatars/50/abott@adorable.png'
-                }
-                alt=""
-              />
-            ) : (
-              'Click aqui para selecione sua imagem'
-            )}
-            <input
-              type="file"
-              id="avatar"
-              accept="image/*"
-              data-file={file}
-              onChange={handleChange}
+        <label>
+          {preview ? (
+            <img
+              src={
+                preview ||
+                'https://api.adorable.io/avatars/50/abott@adorable.png'
+              }
+              alt=""
             />
-          </label>
+          ) : (
+            'Click aqui para selecione sua imagem'
+          )}
+          <input
+            type="file"
+            id="avatar"
+            accept="image/*"
+            data-file={file}
+            onChange={handleChange}
+          />
+        </label>
       </Logo>
 
       <Form initialData={company} schema={schema} onSubmit={handleSubmit}>

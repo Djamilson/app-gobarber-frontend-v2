@@ -31,7 +31,6 @@ export default function CadUser() {
 
   useEffect(() => {
     loadSchedule();
-    // eslint-disable-next-line
   }, []);
 
   async function handleDesabled(id) {
@@ -41,14 +40,13 @@ export default function CadUser() {
         loadSchedule();
         toast.success(`Usuário editado com sucesso!`);
       })
-      .catch(err => {
-        const { stack } = err;
-        const finall = stack.split('status code ')[1].substring(0, 3);
+      .catch(error => {
+        const str = error.toString();
+        const finall = str.replace(/\D/g, '');
 
         if (finall === '400') {
           toast.error('Não foi possível alterar o usuário, tente novamente!');
         }
-        console.tron.log('Erro: ', stack);
 
         if (finall === '401') {
           toast.error(

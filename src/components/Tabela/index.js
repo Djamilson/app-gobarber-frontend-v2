@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  MdDelete,
-  MdLink,
-  MdFileDownload,
-} from 'react-icons/md';
+import { MdDelete, MdLink, MdFileDownload } from 'react-icons/md';
 
 import { Table, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
@@ -11,7 +7,6 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { Scroll } from './styles';
 
 export default function Tabela({ listFinance, handleChamaDelete }) {
-  console.log('Lista: ', listFinance);
   return (
     <Table>
       <Scroll>
@@ -45,7 +40,11 @@ export default function Tabela({ listFinance, handleChamaDelete }) {
                   />
                 </a>
 
-                <a href={fin.avatar.url} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={fin.avatar.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <MdLink style={{ marginRight: 8 }} size={24} color="#222" />
                 </a>
 
