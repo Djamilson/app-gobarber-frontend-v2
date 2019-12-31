@@ -27,8 +27,6 @@ export default function ModalPerfil({
     setItems(
       checkboxFields.map(p => {
         if (name === p.name) {
-          console.log('Checked: ', checked);
-
           const g = {
             id: p.id,
             name: p.name,
@@ -46,15 +44,12 @@ export default function ModalPerfil({
   }
 
   async function handleEditPerfil() {
-    console.log('Agora vai minha lista para o banco: ', items);
-
     if (items.length < 1) {
       toast.warn(`Você não editou o perfil do usuário!`);
     } else {
       const item = items.filter(it => it.checked === true);
 
       if (item && item.length > 0) {
-
         await api
           .put(`/groups/users/edit`, {
             listGroup: items,

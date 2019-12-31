@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
+import { ContatinerLoding } from '~/styles/components';
 
+import PropTypes from 'prop-types';
 import { signInRequest } from '~/store/modules/auth/actions';
-
+import Loading from '~/components/Loading';
 import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({
@@ -18,7 +20,7 @@ const schema = Yup.object().shape({
     .required('A senha é obrigatória'),
 });
 
-export default function SignIn() {
+export default function SignIn({ history }) {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
 
@@ -26,7 +28,11 @@ export default function SignIn() {
     dispatch(signInRequest(email, password));
   }
 
-  return (
+  return loading ? (
+    <ContatinerLoding loading={loading.toString()}>
+      <Loading />
+    </ContatinerLoding>
+  ) : (
     <>
       <img src={logo} alt="GoBarber"></img>
       <span> Acesse a área segura </span>
@@ -38,7 +44,6 @@ export default function SignIn() {
             <FaEnvelope size="19" color="#fff" />
           </label>
         </div>
-
         <div>
           <Input name="password" type="password" placeholder="Sua Senha" />
           <label>
@@ -50,9 +55,13 @@ export default function SignIn() {
 
         <span>
           <Link to="/register">Criar conta</Link>
-          <Link to="/recuperarpassword">Esqueceu senha?</Link>
+          <Link to="/forgetformemail">Esqueceu senha?</Link>
         </span>
       </Form>
     </>
   );
 }
+
+SignIn.propTypes = {
+  history: PropTypes.object.isRequired,
+};

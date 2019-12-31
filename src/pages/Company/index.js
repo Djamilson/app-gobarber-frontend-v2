@@ -61,7 +61,7 @@ export default function Company() {
         <hr />
         <h2> Dados empresa </h2>
         <Input name="name_company" placeholder="Nome da empresa" />
-      
+
         <hr />
 
         <h2> Dados do administrador </h2>

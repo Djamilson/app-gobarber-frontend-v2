@@ -1,18 +1,17 @@
-import React from "react";
-import styled from "styled-components";
-import { Slider, Rail, Handles, Tracks, Ticks } from "react-compound-slider";
+import React from 'react';
+import styled from 'styled-components';
+import { Slider, Rail, Handles, Tracks, Ticks } from 'react-compound-slider';
 
-import SliderHandle from "./Slider.Handle";
-import SliderTrack from "./Slider.Track";
+import SliderHandle from './Slider.Handle';
+import SliderTrack from './Slider.Track';
 
-import SliderTick from "./Slider.Tick";
-
+import SliderTick from './Slider.Tick';
 
 class ControlledSlider extends React.Component {
   // Both values need to be arrays
   state = {
     values: [this.props.defaultValue],
-    update: [this.props.defaultValue]
+    update: [this.props.defaultValue],
   };
 
   onUpdate = update => {
@@ -38,7 +37,7 @@ class ControlledSlider extends React.Component {
     // Need this to dynamically update state from props
     if (props.defaultValue !== state.values[0]) {
       return {
-        values: [props.defaultValue]
+        values: [props.defaultValue],
       };
     }
     // Return null if the state hasn't changed
@@ -47,7 +46,14 @@ class ControlledSlider extends React.Component {
 
   render() {
     const { values } = this.state;
-    const { minMin, maxMin, stepMin, onFocus, onBlur, ...restProps } = this.props;
+    const {
+      minMin,
+      maxMin,
+      stepMin,
+      onFocus,
+      onBlur,
+      ...restProps
+    } = this.props;
     return (
       <Container>
         <StyledSlider
@@ -97,12 +103,11 @@ class ControlledSlider extends React.Component {
             {({ ticks }) => (
               <div className="slider-ticks">
                 {ticks.map(tick => (
-                  <SliderTick key={tick.id} tick={tick} count={ticks.length}/>
+                  <SliderTick key={tick.id} tick={tick} count={ticks.length} />
                 ))}
               </div>
             )}
           </Ticks>
-
         </StyledSlider>
       </Container>
     );

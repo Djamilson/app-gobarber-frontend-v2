@@ -49,7 +49,7 @@ export const Content = styled.div`
 
       span {
         font-size: 15px;
-        color: #ff0000;
+        color: #fff;
       }
 
       input {
