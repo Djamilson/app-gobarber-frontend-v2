@@ -4,14 +4,13 @@ import { Form, Input } from '@rocketseat/unform';
 
 import { toast } from 'react-toastify';
 
-import { signOut } from '~/store/modules/auth/actions';
-
 import Loading from '~/components/Loading';
 import { ContatinerLoding } from '~/styles/components';
 
 import {
   updateProfileRequest,
   updateProfileAvatarRequest,
+  updateProfileSuccess,
 } from '~/store/modules/user/actions';
 
 import { FaUser, FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
@@ -23,9 +22,10 @@ import { Container, Logo } from './styles';
 export default function Profile() {
   const dispatch = useDispatch();
 
-  const loading = useSelector(state => state.user.loading);
+  const [loading, setLoading] = useState(false);
 
   const profile = useSelector(state => state.user.profile);
+
   const [preview, setPreview] = useState();
   const [file, setFile] = useState();
 
@@ -38,12 +38,12 @@ export default function Profile() {
   }
 
   useEffect(() => {
+
     loadSchedule();
   }, []);
 
   async function handleChange(e) {
     setPreview(undefined);
-
     const data = new FormData();
     data.append('file', e.target.files[0]);
 
@@ -53,29 +53,36 @@ export default function Profile() {
       data.append('path_logo', profile.avatar.path);
 
       await api.put('files', data).then(d => {
+
+        dispatch(updateProfileSuccess({ ...profile, avatar: data }));
         toast.success(`Avatar editado com sucesso!`);
-        setFile(d.id);
-        setPreview(d.url);
+        setFile(d.data.id);
+        setPreview(d.data.url);
       });
     } else {
-      await api.post('files', data).then(async file => {
-        const profileNovo = Object.assign({
-          avatar_id: file.data.id,
-        });
+      await api
+        .post('files', data)
+        .then(res => {
+          const { _id, url } = res.data;
 
-        dispatch(updateProfileAvatarRequest(profileNovo));
-        setFile(file.data.id);
-        setPreview(file.data.url);
-      });
+          setLoading(false);
+
+          const profileNovo = Object.assign({
+            avatar_id: _id,
+          });
+          dispatch(updateProfileAvatarRequest(profileNovo));
+          setFile(_id);
+          setPreview(url);
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error('Erro no upload da imagem, tente novamente!');
+        });
     }
   }
 
   function handleSubmit(data) {
     dispatch(updateProfileRequest(data));
-  }
-
-  function handleSignOut() {
-    dispatch(signOut());
   }
 
   return loading ? (
@@ -162,11 +169,6 @@ export default function Profile() {
 
         <button type="submit">Atualizar perfil</button>
       </Form>
-
-      <button type="button" onClick={handleSignOut}>
-        {' '}
-        Sair do GoBarber{' '}
-      </button>
     </Container>
   );
 }

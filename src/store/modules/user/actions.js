@@ -24,6 +24,7 @@ export function updateProfileAvatarRequest(data) {
     payload: { data },
   };
 }
+
 export function updateProfileSuccess(profile) {
   return {
     type: '@user/UPDATE_PROFILE_SUCCESS',
