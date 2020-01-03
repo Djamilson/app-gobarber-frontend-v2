@@ -38,12 +38,12 @@ export default function Profile() {
   }
 
   useEffect(() => {
-
     loadSchedule();
   }, []);
 
   async function handleChange(e) {
     setPreview(undefined);
+    setLoading(true);
     const data = new FormData();
     data.append('file', e.target.files[0]);
 
@@ -52,13 +52,20 @@ export default function Profile() {
       data.append('url_logo', profile.avatar.url);
       data.append('path_logo', profile.avatar.path);
 
-      await api.put('files', data).then(d => {
+      await api
+        .put('files', data)
+        .then(d => {
+          dispatch(updateProfileSuccess({ ...profile, avatar: data }));
+          toast.success(`Avatar editado com sucesso!`);
+          setFile(d.data.id);
+          setPreview(d.data.url);
 
-        dispatch(updateProfileSuccess({ ...profile, avatar: data }));
-        toast.success(`Avatar editado com sucesso!`);
-        setFile(d.data.id);
-        setPreview(d.data.url);
-      });
+          setLoading(false);
+        })
+        .catch(() => {
+          setLoading(false);
+          toast.error('Não foi possível editar, tente novamente!');
+        });
     } else {
       await api
         .post('files', data)
