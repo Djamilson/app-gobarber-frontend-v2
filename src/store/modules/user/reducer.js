@@ -8,7 +8,6 @@ const INITIAL_STATE = {
 export default function user(state = INITIAL_STATE, action) {
   return produce(state, draft => {
     switch (action.type) {
-
       case '@auth/SIGN_UP_REQUEST': {
         draft.loading = true;
         break;
@@ -25,12 +24,10 @@ export default function user(state = INITIAL_STATE, action) {
         break;
       }
 
-
       case '@user/UPDATE_PROFILE_REQUEST': {
         draft.loading = true;
         break;
       }
-
 
       case '@user/UPDATE_PROFILE_SUCCESS': {
         draft.profile = action.payload.profile;

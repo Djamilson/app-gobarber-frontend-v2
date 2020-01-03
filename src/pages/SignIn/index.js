@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import { FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
 import { ContatinerLoding } from '~/styles/components';
 
-import PropTypes from 'prop-types';
 import { signInRequest } from '~/store/modules/auth/actions';
 import Loading from '~/components/Loading';
 import logo from '~/assets/logo.svg';
@@ -20,7 +19,7 @@ const schema = Yup.object().shape({
     .required('A senha é obrigatória'),
 });
 
-export default function SignIn({ history }) {
+export default function SignIn() {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.auth.loading);
 
@@ -61,7 +60,3 @@ export default function SignIn({ history }) {
     </>
   );
 }
-
-SignIn.propTypes = {
-  history: PropTypes.object.isRequired,
-};
