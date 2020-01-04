@@ -4,8 +4,8 @@ export default {
   PORT: 3000,
   // WEBHOST: '138.197.79.44',
   // WEBHOST: '192.168.10.100',
-  //WEBHOST: '192.168.0.125',
+  // WEBHOST: '192.168.0.125',
 
-  //WEBHOST: '192.168.0.125',
-  WEBHOST: 'www.ofertadodia.palmas.br',
+  WEBHOST: '192.168.0.125',
+  // WEBHOST: 'www.ofertadodia.palmas.br',
 };
