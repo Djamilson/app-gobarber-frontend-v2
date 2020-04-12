@@ -7,5 +7,5 @@ export default {
   // WEBHOST: '192.168.0.125',
 
   //WEBHOST: '192.168.0.125',
-   WEBHOST: 'www.ofertadodia.palmas.br',
+  WEBHOST: 'www.ofertadodia.palmas.br',
 };
