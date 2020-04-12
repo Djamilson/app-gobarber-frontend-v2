@@ -47,13 +47,11 @@ export function* updateProfileAvatar({ payload }) {
     });
 
     const response = yield call(api.put, 'usersavatar', profile);
-    console.log('Daddos final :', response.data);
 
     toast.success('Avatar atualizado com sucesso!');
 
     yield put(updateProfileSuccess(response.data));
   } catch (error) {
-    console.log('Error: sagar: ', error);
     toast.error('Erro ao atualizar o avatar, tente novamente!');
     yield put(updateProfilefailure());
   }

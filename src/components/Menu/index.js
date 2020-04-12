@@ -8,11 +8,13 @@ export default function Menu({ profile }) {
   const [group, setGroup] = useState(false);
   const [admin, setAdmin] = useState(false);
 
+  console.log(' profile.group_users:: ', profile.group_users);
+
   useMemo(() => {
     const load = () => {
       profile.group_users.forEach(g => {
-        if (g.Group.name === 'role_master') setGroup(true);
-        if (g.Group.name === 'role_administrador') setAdmin(true);
+        if (g.group.id === 1) setGroup(true);
+        if (g.group.id === 2) setAdmin(true);
       });
     };
 
@@ -22,11 +24,11 @@ export default function Menu({ profile }) {
   function menuDinamico() {
     return (
       <ul>
-        {group !== true ? (
+        {group !== true && (
           <Time>
             <Link to="/horario">Horário</Link>
           </Time>
-        ) : null}
+        )}
 
         {admin === true ? (
           <Time>
