@@ -15,7 +15,7 @@ import 'react-day-picker/lib/style.css';
 
 import FileList from '~/components/FileList';
 import Modal from '~/components/Modal';
-import api from '~/services/api';
+import api from '~/_services/api';
 
 import Loading from '~/components/Loading';
 

@@ -8,7 +8,7 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import { FaEnvelope } from 'react-icons/fa';
 
-import api from '~/services/api';
+import api from '~/_services/api';
 import Loading from '~/components/Loading';
 
 import { ContatinerLoding } from '~/styles/components';
@@ -23,7 +23,7 @@ const schema = Yup.object().shape({
 
 export default function FormEmail({ history, match }) {
   const [loading, setLoading] = useState(false);
-  
+
   async function handleSubmit(data) {
     setLoading(true);
 

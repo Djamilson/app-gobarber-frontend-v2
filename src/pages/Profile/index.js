@@ -15,7 +15,7 @@ import {
 
 import { FaUser, FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
 
-import api from '~/services/api';
+import api from '~/_services/api';
 
 import { Container, Logo } from './styles';
 

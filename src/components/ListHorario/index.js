@@ -6,7 +6,7 @@ import Modal from '~/components/Modal';
 
 import { Container, Content, Time } from './styles';
 
-import api from '~/services/api';
+import api from '~/_services/api';
 
 export default function ListHorario({ horarioSize, horario, loadHorario }) {
   const [show, setShow] = useState(false);

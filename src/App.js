@@ -4,10 +4,10 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 import { Router } from 'react-router-dom';
 
-import './config/ReactotronConfig';
+import './_config/ReactotronConfig';
 
 import Routes from './routes';
-import history from './services/history';
+import history from './_services/history';
 
 import { store, persistor } from './store';
 
