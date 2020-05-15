@@ -3,7 +3,7 @@ import { MdNotifications } from 'react-icons/md';
 import { parseISO, formatDistance } from 'date-fns';
 
 import pt from 'date-fns/locale/pt';
-import api from '~/services/api';
+import api from '~/_services/api';
 
 import {
   Container,

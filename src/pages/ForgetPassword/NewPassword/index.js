@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
 
-import api from '~/services/api';
+import api from '~/_services/api';
 import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({

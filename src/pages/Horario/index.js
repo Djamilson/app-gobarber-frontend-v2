@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 
 import { Form } from '@rocketseat/unform';
 
-import api from '~/services/api';
+import api from '~/_services/api';
 
 import Times from '~/components/Times';
 import ListHorario from '~/components/ListHorario';

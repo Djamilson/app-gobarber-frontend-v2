@@ -8,7 +8,7 @@ import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 import { MdInfoOutline } from 'react-icons/md';
 
 import Checkbox from '../Checkbox';
-import api from '~/services/api';
+import api from '~/_services/api';
 
 import { Modall, ContentModal, Actions, Front } from './styles';
 

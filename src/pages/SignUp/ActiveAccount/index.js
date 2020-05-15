@@ -12,7 +12,7 @@ import Loading from '~/components/Loading';
 import logo from '~/assets/logo.svg';
 
 import { toast } from 'react-toastify';
-import api from '~/services/api';
+import api from '~/_services/api';
 import { ContatinerLoding } from '~/styles/components';
 
 import { ContentButtons } from './styles';

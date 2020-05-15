@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 import Modal from '~/components/Modal';
 import ModalPerfil from '~/components/ModalPerfil';
 
-import api from '~/services/api';
+import api from '~/_services/api';
 import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 import { Container, Content } from './styles';
