@@ -29,11 +29,10 @@ import {
 
 export default function FileList({ files, handleChamaDelete }) {
   function getAvatar(avatar) {
-    if (avatar) return avatar.url;
+    if (avatar) return `${avatar.url}-xs`;
 
     return 'https://api.adorable.io/avatars/50/abott@adorable.png';
   }
-
 
   return (
     <ContainerList>
@@ -47,9 +46,7 @@ export default function FileList({ files, handleChamaDelete }) {
 
       {files.map(uploadedFile => (
         <li key={uploadedFile.id}>
-          <Preview
-            src={ getAvatar(uploadedFile.avatar) }
-          />
+          <Preview src={getAvatar(uploadedFile.avatar)} />
           <FileInfoPg>
             <div>
               <strong>{uploadedFile.createdAt}</strong>
@@ -79,11 +76,11 @@ export default function FileList({ files, handleChamaDelete }) {
                 <MdCheckCircle size={24} color="#78e5d5" />
               )}
               {uploadedFile.error && <MdError size={24} color="#e57878" />}
-              {uploadedFile.avatar !== null ?  (
+              {uploadedFile.avatar !== null ? (
                 <>
                   <a
-                    download={uploadedFile.avatar.path}
-                    href={uploadedFile.avatar.url}
+                    download={`${uploadedFile.avatar.path}-original`}
+                    href={`${uploadedFile.avatar.url}-xs`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -95,7 +92,7 @@ export default function FileList({ files, handleChamaDelete }) {
                   </a>
 
                   <a
-                    href={uploadedFile.avatar.url}
+                    href={`${uploadedFile.avatar.url}-xs`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -104,7 +101,7 @@ export default function FileList({ files, handleChamaDelete }) {
                 </>
               ) : (
                 ''
-              ) }
+              )}
               <button
                 type="button"
                 onClick={() => handleChamaDelete(uploadedFile)}

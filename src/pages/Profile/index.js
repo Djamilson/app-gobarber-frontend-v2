@@ -52,40 +52,38 @@ export default function Profile() {
       data.append('url_logo', profile.avatar.url);
       data.append('path_logo', profile.avatar.path);
 
-      await api
-        .put('files', data)
-        .then(d => {
-          dispatch(updateProfileSuccess({ ...profile, avatar: data }));
-          toast.success(`Avatar editado com sucesso!`);
-          setFile(d.data.id);
-          setPreview(d.data.url);
+      try {
+        const res = await api.put('files', data);
+        dispatch(updateProfileSuccess({ ...profile, avatar: data }));
+        toast.success(`Avatar editado com sucesso!`);
+        setFile(res.data.id);
+        setPreview(res.data.url);
 
-          setLoading(false);
-        })
-        .catch(() => {
-          setLoading(false);
-          toast.error('Não foi possível editar, tente novamente!');
-        });
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
+        toast.error('Não foi possível editar, tente novamente!');
+      }
     } else {
-      await api
-        .post('files', data)
-        .then(res => {
-          const { _id, url } = res.data;
+      try {
+        const resData = await api.post('files', data);
 
-          setLoading(false);
+        const { _id, url } = resData.data;
 
-          const profileNovo = Object.assign({
-            avatar_id: _id,
-          });
-          dispatch(updateProfileAvatarRequest(profileNovo));
-          setFile(_id);
-          setPreview(url);
-        })
-        .catch(() => {
-          setLoading(false);
-          toast.error('Erro no upload da imagem, tente novamente!');
+        setLoading(false);
+
+        const profileNovo = Object.assign({
+          avatar_id: _id,
         });
+        dispatch(updateProfileAvatarRequest(profileNovo));
+        setFile(_id);
+        setPreview(url);
+      } catch (error) {
+        setLoading(false);
+        toast.error('Erro no upload da imagem, tente novamente!');
+      }
     }
+
   }
 
   function handleSubmit(data) {
