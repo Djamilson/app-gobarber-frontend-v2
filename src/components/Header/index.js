@@ -45,7 +45,7 @@ export default function Header() {
                   ? `${profile.avatar.url}-xs`
                   : 'https://api.adorable.io/avatars/50/abott@adorable.png'
               }
-              alt="Não tem Avatar"
+              alt={profile.avatar.name}
             />
           </Profile>
           <Badge onClick={handleSignOut} title="Sair">
