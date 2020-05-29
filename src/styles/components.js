@@ -1,4 +1,5 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
+
 import { Spinner } from '~/components/Loading/styles';
 
 export const Wrapper = styled.div`
@@ -24,18 +25,12 @@ export const Content = styled.div`
 `;
 
 export const ContatinerLoding = styled.div`
-  margin-top: 18%;
-
+  display: ${props => (props.loading !== true ? `none` : `flex`)};
+  justify-content: center;
+  align-items: center;
+  border: none;
+  z-index: 10;
   ${Spinner} {
     height: 48px;
   }
-
-  ${props =>
-    props.loading &&
-    css`
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    `}
 `;

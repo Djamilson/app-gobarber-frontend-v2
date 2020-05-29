@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Form, Input } from '@rocketseat/unform';
+import { MdPhoto } from 'react-icons/md';
 
 import { toast } from 'react-toastify';
 
@@ -14,26 +15,29 @@ import {
 } from '~/store/modules/user/actions';
 
 import { FaUser, FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
+import { colors } from '~/styles';
 
 import api from '~/_services/api';
 
-import { Container, Logo } from './styles';
+import { Container, Avatar, ImagemDiv, ContaineIcon } from './styles';
 
 export default function Profile() {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(false);
-
+  const inputRef = useRef();
   const profile = useSelector(state => state.user.profile);
+  const [color] = useState(`${colors.serven}`);
 
-  const [preview, setPreview] = useState();
-  const [file, setFile] = useState();
+  const [image, setImage] = useState({ preview: '', file: '', id_file: '' });
 
   async function loadSchedule() {
     if (!!profile.avatar) {
       const { id, url } = profile.avatar;
-      setFile(id);
-      setPreview(url);
+      setImage({
+        preview: `${url}-sx`,
+        id_file: id,
+      });
     }
   }
 
@@ -42,7 +46,6 @@ export default function Profile() {
   }, []);
 
   async function handleChange(e) {
-    setPreview(undefined);
     setLoading(true);
     const data = new FormData();
     data.append('file', e.target.files[0]);
@@ -56,8 +59,11 @@ export default function Profile() {
         const res = await api.put('files', data);
         dispatch(updateProfileSuccess({ ...profile, avatar: data }));
         toast.success(`Avatar editado com sucesso!`);
-        setFile(res.data.id);
-        setPreview(res.data.url);
+
+        setImage({
+          preview: `${res.url}-sx`,
+          id_file: res.data.id,
+        });
 
         setLoading(false);
       } catch (error) {
@@ -76,14 +82,16 @@ export default function Profile() {
           avatar_id: _id,
         });
         dispatch(updateProfileAvatarRequest(profileNovo));
-        setFile(_id);
-        setPreview(url);
+
+        setImage({
+          preview: `${url}-sx`,
+          id_file: _id,
+        });
       } catch (error) {
         setLoading(false);
         toast.error('Erro no upload da imagem, tente novamente!');
       }
     }
-
   }
 
   function handleSubmit(data) {
@@ -96,30 +104,35 @@ export default function Profile() {
     </ContatinerLoding>
   ) : (
     <Container>
-      <Logo>
-        <label>
-          {preview ? (
-            <img
-              src={
-                preview ||
-                'https://api.adorable.io/avatars/50/abott@adorable.png'
-              }
-              alt=""
-            />
-          ) : (
-            'Click aqui para selecione sua imagem'
-          )}
-          <input
-            type="file"
-            id="avatar"
-            accept="image/*"
-            data-file={file}
-            onChange={handleChange}
-          />
-        </label>
-      </Logo>
-
       <Form initialData={profile} onSubmit={handleSubmit}>
+        <ImagemDiv>
+          <Avatar color={color}>
+            <label>
+              {image.preview ? (
+                <img
+                  src={
+                    `${image.preview}-xs` ||
+                    'https://api.adorable.io/avatars/50/abott@adorable.png'
+                  }
+                  alt={profile.person.name}
+                />
+              ) : (
+                <ContaineIcon>
+                  <MdPhoto size={40} color={colors.serven} />
+                  Adicionar foto
+                </ContaineIcon>
+              )}
+              <input
+                type="file"
+                id="avatar"
+                accept="image/*"
+                onChange={handleChange}
+                ref={inputRef}
+              />
+            </label>
+          </Avatar>
+        </ImagemDiv>
+
         <div>
           <Input name="name" placeholder="Nome completo" />
           <label>
