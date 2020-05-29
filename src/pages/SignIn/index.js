@@ -27,11 +27,7 @@ export default function SignIn() {
     dispatch(signInRequest(email, password));
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <>
       <img src={logo} alt="GoBarber"></img>
       <span> Acesse a área segura </span>

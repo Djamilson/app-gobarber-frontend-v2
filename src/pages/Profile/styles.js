@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
+import { colors } from '~/styles';
 
 export const Container = styled.div`
   max-width: 600px;
@@ -123,34 +124,46 @@ export const Container = styled.div`
   }
 `;
 
-export const Logo = styled.span`
+export const ImagemDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+export const Avatar = styled.span`
   display: flex;
   align-items: center;
   justify-content: center;
+  width: 160px;
+  height: 160px;
+  border: 3px dashed ${props => props.color};
+  border-radius: 50%;
 
   label {
     cursor: pointer;
-    border: 1px dashed #ddd;
-    border-radius: 4px;
-    height: 120px;
-    width: 120px;
-    color: #fff;
     transition: height 0.2s ease;
-
     &:hover {
       opacity: 0.7;
     }
 
     img {
-      height: 120px;
-      width: 120px;
+      width: 160px;
+      height: 160px;
       border-radius: 50%;
-      border: 3px solid rgba(255, 255, 255, 0.3);
-      background: #eee;
     }
 
     input {
       display: none;
     }
   }
+`;
+
+export const ContaineIcon = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: ${colors.serven};
+  font-weight: bold;
 `;

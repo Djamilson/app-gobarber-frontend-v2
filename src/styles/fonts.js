@@ -1,7 +1,15 @@
 export default {
-  bigger: 24,
-  big: 16,
+  extra_big: 28,
+  icon_menu: 25,
+  extra_large: 24,
+  bigbig: 22,
+  big: 20,
+  small_big: 18,
+  large: 16,
+  larger: 15,
   regular: 14,
+  small_regular: 13,
   small: 12,
   smaller: 11,
+  minsmall: 8,
 };

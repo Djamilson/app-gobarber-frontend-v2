@@ -32,6 +32,7 @@ export function updateProfileSuccess(profile) {
   };
 }
 
+
 export function updateProfilefailure() {
   return {
     type: '@user/UPDATE_PROFILE_REQUEST',
