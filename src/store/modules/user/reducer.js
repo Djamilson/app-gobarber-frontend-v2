@@ -50,6 +50,16 @@ export default function user(state = INITIAL_STATE, action) {
         break;
       }
 
+      case '@user/CREATE_IMAGE': {
+        draft.loading = true;
+        break;
+      }
+
+      case '@user/UPDATE_IMAGE': {
+        draft.loading = true;
+        break;
+      }
+
       default:
     }
   });

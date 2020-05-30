@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { darken } from 'polished';
-import { colors } from '~/styles';
 
 export const Container = styled.div`
   max-width: 600px;
@@ -122,48 +121,4 @@ export const Container = styled.div`
       background: ${darken(0.08, '#f64c75')};
     }
   }
-`;
-
-export const ImagemDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-export const Avatar = styled.span`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 160px;
-  height: 160px;
-  border: 3px dashed ${props => props.color};
-  border-radius: 50%;
-
-  label {
-    cursor: pointer;
-    transition: height 0.2s ease;
-    &:hover {
-      opacity: 0.7;
-    }
-
-    img {
-      width: 160px;
-      height: 160px;
-      border-radius: 50%;
-    }
-
-    input {
-      display: none;
-    }
-  }
-`;
-
-export const ContaineIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  color: ${colors.serven};
-  font-weight: bold;
 `;

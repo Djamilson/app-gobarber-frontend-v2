@@ -3,7 +3,11 @@ import { toast } from 'react-toastify';
 
 import api from '~/_services/api';
 
-import { updateProfileSuccess, updateProfilefailure } from './actions';
+import {
+  signInFaileru,
+  updateProfileSuccess,
+  updateProfilefailure,
+} from './actions';
 
 export function* updateProfile({ payload }) {
   try {
@@ -57,7 +61,41 @@ export function* updateProfileAvatar({ payload }) {
   }
 }
 
+export function* createImage({ payload }) {
+  try {
+    const { data } = payload.data;
+
+    const resp = yield call(api.post, 'files/mobile', data);
+
+    yield put(updateProfileSuccess(resp.data.user));
+
+    toast.success('Imagem inserida com sucesso!');
+  } catch (error) {
+    toast.error('Houve uma falha ao tentar inserir a imagem,  tente novamente');
+
+    yield put(signInFaileru());
+  }
+}
+
+export function* updateImage({ payload }) {
+  try {
+    const { user } = payload.data.data;
+    console.log('data::', user);
+
+    yield put(updateProfileSuccess(user));
+
+    toast.success('Imagem atualizada com sucesso!');
+  } catch (error) {
+    toast.error('Não foi possível alterar a imagem, tente novamente!');
+
+    yield put(signInFaileru());
+  }
+}
+
 export default all([
+  takeLatest('@user/CREATE_IMAGE', createImage),
+  takeLatest('@user/UPDATE_IMAGE', updateImage),
+
   takeLatest('@user/UPDATE_PROFILE_REQUEST', updateProfile),
   takeLatest('@user/UPDATE_PROFILE_AVATAR_REQUEST', updateProfileAvatar),
 ]);

@@ -13,12 +13,7 @@ import { createImage, updateImage } from '~/store/modules/user/actions';
 
 import Loading from '~/components/Loading';
 
-import {
-  Container,
-  ItemAvatar,
-  Item,
-  ContaineIcon,
-} from './styles';
+import { Container, ItemAvatar, Item, ContaineIcon } from './styles';
 
 import api from '~/_services/api';
 
@@ -43,7 +38,7 @@ export default function AvatarInput() {
     if (!!profile.avatar) {
       const { id, url } = profile.avatar;
       setImage({
-        preview: `${url}-sm`,
+        preview: `${url}-xs`,
         id_file: id,
       });
     }

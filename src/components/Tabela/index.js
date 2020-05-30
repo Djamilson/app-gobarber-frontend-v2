@@ -29,7 +29,7 @@ export default function Tabela({ listFinance, handleChamaDelete }) {
               <Td>
                 <a
                   download={`${fin.avatar.path}-original`}
-                  href={`${fin.avatar.url}-xs`}
+                  href={`${fin.avatar.url}-sm`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -41,7 +41,7 @@ export default function Tabela({ listFinance, handleChamaDelete }) {
                 </a>
 
                 <a
-                  href={`${fin.avatar.url}-xs`}
+                  href={`${fin.avatar.url}-sm`}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

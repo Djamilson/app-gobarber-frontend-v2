@@ -1,4 +1,3 @@
-
 export function updateProfileRequest(data) {
   return {
     type: '@user/UPDATE_PROFILE_REQUEST',
@@ -32,9 +31,22 @@ export function updateProfileSuccess(profile) {
   };
 }
 
-
 export function updateProfilefailure() {
   return {
     type: '@user/UPDATE_PROFILE_REQUEST',
+  };
+}
+
+export function createImage(data) {
+  return {
+    type: '@user/CREATE_IMAGE',
+    payload: { data },
+  };
+}
+
+export function updateImage(data) {
+  return {
+    type: '@user/UPDATE_IMAGE',
+    payload: { data },
   };
 }

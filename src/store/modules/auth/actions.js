@@ -44,16 +44,3 @@ export function signOut() {
   };
 }
 
-export function createImage(data) {
-  return {
-    type: '@auth/CREATE_IMAGE',
-    payload: { data },
-  };
-}
-
-export function updateImage(data) {
-  return {
-    type: '@auth/UPDATE_IMAGE',
-    payload: { data },
-  };
-}
