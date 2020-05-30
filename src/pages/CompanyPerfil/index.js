@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-
+import AvatarInput from './AvatarInput';
 import {
   FaUniversity,
   FaEnvelope,
@@ -118,30 +118,9 @@ export default function CompanyPerfil() {
       <Content>
         <span>Perfil da empresa</span>
       </Content>
-      <Logo>
-        <label>
-          {preview ? (
-            <img
-              src={
-                preview ||
-                'https://api.adorable.io/avatars/50/abott@adorable.png'
-              }
-              alt=""
-            />
-          ) : (
-            'Click aqui para selecione sua imagem'
-          )}
-          <input
-            type="file"
-            id="avatar"
-            accept="image/*"
-            data-file={file}
-            onChange={handleChange}
-          />
-        </label>
-      </Logo>
 
       <Form initialData={company} schema={schema} onSubmit={handleSubmit}>
+        <AvatarInput />
         <hr />
         <h2> Dados da empresa</h2>
 
@@ -167,7 +146,7 @@ export default function CompanyPerfil() {
           <label>
             <FaUnlockAlt size="22" color="#fff" />
           </label>
-          <span>{company.cod_company}</span>
+          <h3>{company.cod_company}</h3>
         </div>
 
         <hr />

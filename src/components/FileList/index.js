@@ -29,7 +29,7 @@ import {
 
 export default function FileList({ files, handleChamaDelete }) {
   function getAvatar(avatar) {
-    if (avatar) return `${avatar.url}-xs`;
+    if (avatar) return `${avatar.url}-sm`;
 
     return 'https://api.adorable.io/avatars/50/abott@adorable.png';
   }
@@ -80,7 +80,7 @@ export default function FileList({ files, handleChamaDelete }) {
                 <>
                   <a
                     download={`${uploadedFile.avatar.path}-original`}
-                    href={`${uploadedFile.avatar.url}-xs`}
+                    href={`${uploadedFile.avatar.url}-sm`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -92,7 +92,7 @@ export default function FileList({ files, handleChamaDelete }) {
                   </a>
 
                   <a
-                    href={`${uploadedFile.avatar.url}-xs`}
+                    href={`${uploadedFile.avatar.url}-sm`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

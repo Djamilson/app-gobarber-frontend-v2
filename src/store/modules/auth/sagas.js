@@ -5,7 +5,7 @@ import history from '~/_services/history';
 import api from '~/_services/api';
 
 import { signInSuccess, signFailure } from './actions';
-import { signInFaileru, updateProfileSuccess } from '../user/actions';
+import { signInFaileru } from '../user/actions';
 
 function navPageActiveCount(email) {
   history.push(`/activeaccount/${email}`);
@@ -145,44 +145,10 @@ export function signOut() {
   history.push('/');
 }
 
-export function* createImage({ payload }) {
-  try {
-    const { data } = payload.data;
-
-    const resp = yield call(api.post, 'files/mobile', data);
-
-    yield put(updateProfileSuccess(resp.data.user));
-
-    toast.error('Imagem inserida com sucesso!');
-  } catch (error) {
-    toast.error(
-      'Houve uma efalha ao tentar inserir a imagem,  tente novamente'
-    );
-
-    yield put(signInFaileru());
-  }
-}
-
-export function* updateImage({ payload }) {
-  try {
-    const { data } = payload.data;
-
-    yield put(updateProfileSuccess(data.user));
-
-    toast.error('Imagem atualizada com sucesso!');
-  } catch (error) {
-    toast.error('Não foi possível alterar a imagem, tente novamente!');
-
-    yield put(signInFaileru());
-  }
-}
-
 export default all([
   takeLatest('persist/REHYDRATE', setToken),
   takeLatest('@auth/SIGN_IN_REQUEST', signIn),
   takeLatest('@auth/SIGN_UP_REQUEST', signUp),
   takeLatest('@user/SIGN_UP_SUCCESS', signUp),
-  takeLatest('@auth/CREATE_IMAGE', createImage),
-  takeLatest('@auth/UPDATE_IMAGE', updateImage),
   takeLatest('@auth/SIGN_OUT', signOut),
 ]);

@@ -67,7 +67,7 @@ export const Container = styled.div`
       font-size: 18px;
     }
 
-    span {
+     h3 {
       color: #fb6f91;
       align-self: flex-start;
       margin: 0 0 10px;

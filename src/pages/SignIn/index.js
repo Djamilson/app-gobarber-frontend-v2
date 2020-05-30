@@ -4,10 +4,8 @@ import { Link } from 'react-router-dom';
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
 import { FaEnvelope, FaUnlockAlt } from 'react-icons/fa';
-import { ContatinerLoding } from '~/styles/components';
 
 import { signInRequest } from '~/store/modules/auth/actions';
-import Loading from '~/components/Loading';
 import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({
