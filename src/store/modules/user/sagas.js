@@ -3,11 +3,7 @@ import { toast } from 'react-toastify';
 
 import api from '~/_services/api';
 
-import {
-  signInFaileru,
-  updateProfileSuccess,
-  updateProfilefailure,
-} from './actions';
+import { signInFaileru, updateProfileSuccess } from './actions';
 
 export function* updateProfile({ payload }) {
   try {
@@ -22,7 +18,7 @@ export function* updateProfile({ payload }) {
     );
 
     const response = yield call(api.put, 'users', profile);
-    
+
     toast.success('Perfil atualizado com sucesso!');
 
     yield put(updateProfileSuccess(response.data.user));
@@ -32,13 +28,13 @@ export function* updateProfile({ payload }) {
 
     if (final === '400') {
       toast.error('Campos inválidos!');
-      yield put(updateProfilefailure());
+      yield put(signInFaileru());
       return;
     }
 
     toast.error('Erro ao atualizar o perfil, confira os seus dados!');
 
-    yield put(updateProfilefailure());
+    yield put(signInFaileru());
   }
 }
 
@@ -57,7 +53,7 @@ export function* updateProfileAvatar({ payload }) {
     yield put(updateProfileSuccess(response.data));
   } catch (error) {
     toast.error('Erro ao atualizar o avatar, tente novamente!');
-    yield put(updateProfilefailure());
+    yield put(signInFaileru());
   }
 }
 
