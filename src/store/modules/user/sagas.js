@@ -22,10 +22,10 @@ export function* updateProfile({ payload }) {
     );
 
     const response = yield call(api.put, 'users', profile);
-
+    
     toast.success('Perfil atualizado com sucesso!');
 
-    yield put(updateProfileSuccess(response.data));
+    yield put(updateProfileSuccess(response.data.user));
   } catch (error) {
     const str = error.toString();
     const final = str.replace(/\D/g, '');
@@ -80,7 +80,6 @@ export function* createImage({ payload }) {
 export function* updateImage({ payload }) {
   try {
     const { user } = payload.data.data;
-    console.log('data::', user);
 
     yield put(updateProfileSuccess(user));
 

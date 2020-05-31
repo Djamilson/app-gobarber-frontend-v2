@@ -37,8 +37,6 @@ export function* signIn({ payload }) {
     const str = error.toString();
     const final = str.replace(/\D/g, '');
 
-    console.log('error: ', str);
-
     if (final === '400') {
       toast.warn('Não foi possível encontra um usuário, crie sua conta!');
       yield put(signFailure());

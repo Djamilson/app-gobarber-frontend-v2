@@ -49,8 +49,7 @@ export default function Header() {
             />
           </Profile>
           <Badge onClick={handleSignOut} title="Sair">
-            {' '}
-            <FaSignOutAlt color="#7159c1" size={28} />{' '}
+            <FaSignOutAlt color="#7159c1" size={28} />
           </Badge>
         </aside>
       </Content>

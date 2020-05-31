@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Form, Input } from '@rocketseat/unform';
 import * as Yup from 'yup';
-import AvatarInput from './AvatarInput';
+
 import {
   FaUniversity,
   FaEnvelope,
@@ -11,10 +11,20 @@ import {
   FaUnlockAlt,
 } from 'react-icons/fa';
 
+import { MdPhoto } from 'react-icons/md';
 import { toast } from 'react-toastify';
 import api from '~/_services/api';
 
-import { Container, Content, Logo } from './styles';
+import {
+  Container,
+  Content,
+  Avatar,
+  ItemAvatar,
+  Item,
+  ContaineIcon,
+} from './styles';
+import Loading from '~/components/Loading';
+import { colors } from '~/styles';
 
 const schema = Yup.object().shape({
   id: Yup.string(),
@@ -29,57 +39,35 @@ const schema = Yup.object().shape({
 });
 
 export default function CompanyPerfil() {
-  const cod_company = useSelector(state => state.user.profile.company_id);
-
+  const idCompany = useSelector(state => state.user.profile.company_id);
+  
   const [company, setCompany] = useState({});
+  const [image, setImage] = useState({ preview: '', idFile: '' });
 
-  const [preview, setPreview] = useState();
-  const [file, setFile] = useState();
+  const loading_ = useSelector(state => state.user.loading);
+
+  const [loading, setLoading] = useState(false);
+  const inputRef = useRef();
+  const profile = useSelector(state => state.user.profile);
+  const [color] = useState(`${colors.serven}`);
 
   async function loadSchedule() {
-    const response = await api.get(`companyperfil/${cod_company}`);
+    const response = await api.get(`companyperfil/${idCompany}`);
 
     setCompany(response.data);
 
     if (!!response.data.logo) {
       const { id, url } = response.data.logo;
-      setFile(id);
-      setPreview(url);
+      setImage({
+        preview: `${url}-sm`,
+        idFile: id,
+      });
     }
   }
 
   useEffect(() => {
     loadSchedule();
   }, []);
-
-  async function handleChange(e) {
-    setPreview(undefined);
-
-    const data = new FormData();
-    data.append('file', e.target.files[0]);
-
-    if (!!company.logo) {
-      data.append('id_logo', company.logo.id);
-      data.append('url_logo', company.logo.url);
-      data.append('path_logo', company.logo.path);
-
-      await api.put('files', data).then(d => {
-        toast.success(`Logo editado com sucesso!`);
-        setFile(d.data.id);
-        setPreview(d.data.url);
-      });
-    } else {
-      await api.post('files', data).then(async file => {
-        const dados = { id_logo: file.data.id, id_company: company.id };
-        await api.put('companyfiles', dados).then(() => {
-          setPreview(file.data.url);
-          toast.success(`Logo editado com sucesso!`);
-        });
-      });
-    }
-
-    loadSchedule();
-  }
 
   async function handleSubmit(data) {
     await api
@@ -113,14 +101,72 @@ export default function CompanyPerfil() {
       });
   }
 
+  async function handleChange(e) {
+    const data = new FormData();
+    data.append('file', e.target.files[0]);
+
+    try {
+      setLoading(true);
+      const { idFile } = image;
+      data.append('id', idFile);
+
+      setLoading(true);
+      const res = await api.put(`company/update/files/${idCompany}`, data);
+
+      const { _id, url } = res.data;
+
+      setImage({
+        preview: `${url}-sm`,
+        idFile: _id,
+      });
+
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+      toast.error('Erro no upload da imagem, tente novamente!');
+    }
+  }
+
   return (
     <Container>
       <Content>
         <span>Perfil da empresa</span>
       </Content>
+      <Avatar>
+        <section>
+          <ItemAvatar color={color}>
+            <span>
+              <label>
+                {image.preview ? (
+                  <img
+                    src={
+                      image.preview ||
+                      'https://api.adorable.io/avatars/50/abott@adorable.png'
+                    }
+                    alt={profile.name}
+                  />
+                ) : (
+                  <ContaineIcon>
+                    <MdPhoto size={40} color={colors.serven} />
+                    Adicionar foto
+                  </ContaineIcon>
+                )}
+
+                <input
+                  type="file"
+                  id="avatar"
+                  accept="image/*"
+                  onChange={handleChange}
+                  ref={inputRef}
+                />
+              </label>
+            </span>
+          </ItemAvatar>
+        </section>
+        <Item>{(loading_ === true || loading === true) && <Loading />}</Item>
+      </Avatar>
 
       <Form initialData={company} schema={schema} onSubmit={handleSubmit}>
-        <AvatarInput />
         <hr />
         <h2> Dados da empresa</h2>
 

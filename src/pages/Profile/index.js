@@ -22,7 +22,6 @@ export default function Profile() {
     <Container>
       <Form initialData={profile} onSubmit={handleSubmit}>
         <AvatarInput />
-
         <div>
           <Input name="name" placeholder="Nome completo" />
           <label>
@@ -76,7 +75,7 @@ export default function Profile() {
         </div>
 
         <button type="submit">
-          {loading ? 'Carregando ...' : 'Atualizar perfil'}
+          {loading ? 'Atualizando ...' : 'Atualizar perfil'}
         </button>
       </Form>
     </Container>

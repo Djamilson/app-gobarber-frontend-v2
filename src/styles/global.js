@@ -45,7 +45,7 @@ const GlobalStyles = createGlobalStyle`
     ol, ul {
     list-style: none;
   }
-  button{ cursor: pointer;}
+  button{ cursor: pointer;   outline: 0;}
   blockquote, q {
     quotes: none;
   }

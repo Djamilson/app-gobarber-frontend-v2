@@ -123,14 +123,14 @@ export default function ModalPerfil({
           </ContentModal>
           <Actions>
             <button type="button" className="toggle-button" onClick={onClose}>
-              Cancelar{' '}
+              Cancelar
             </button>
             <button
               type="button"
               className="toggle-button"
               onClick={() => handleEditPerfil()}
             >
-              Salvar{' '}
+              Salvar
             </button>
           </Actions>
         </Modall>

@@ -83,7 +83,7 @@ export default function CadUser() {
 
     const checkboxFields = data.map(e1 => {
       for (const k of user.group_users.values()) {
-        if (e1.description === k.Group.description) {
+        if (e1.description === k.group.description) {
           return {
             ...e1,
             checked: true,
@@ -133,7 +133,7 @@ export default function CadUser() {
               <Td>
                 {user.group_users.map(group => (
                   <span key={group.id}>
-                    {group.Group.description} {''}{' '}
+                    {group.group.description} {''}{' '}
                   </span>
                 ))}
               </Td>
@@ -146,12 +146,11 @@ export default function CadUser() {
                   disabled={handleBoolean(user)}
                   onClick={() => handleChamaDelete(user)}
                 >
-                  {' '}
-                  {user.status === true ? 'Desativa' : 'Ativar'}{' '}
-                </button>{' '}
+                  {user.status === true ? 'Desativa' : 'Ativar'}
+                </button>
                 <button type="button" onClick={() => handleChamaPerfil(user)}>
                   Perfil
-                </button>{' '}
+                </button>
               </Td>
             </Tr>
           ))}
