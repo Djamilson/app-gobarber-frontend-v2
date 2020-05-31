@@ -17,10 +17,7 @@ import FileList from '~/components/FileList';
 import Modal from '~/components/Modal';
 import api from '~/_services/api';
 
-import Loading from '~/components/Loading';
-
 import { Container, Content, Logo, ValorInput } from './styles';
-import { ContatinerLoding } from '~/styles/components';
 
 export default function Financeiro() {
   const [loading, setLoading] = useState(false);
@@ -101,8 +98,10 @@ export default function Financeiro() {
           avatar,
         };
       }
+
       return parcela;
     });
+
     setListFinance(data);
 
     setLoading(false);
@@ -159,30 +158,26 @@ export default function Financeiro() {
     dataa.append('date', date);
     dataa.append('priceFloat', priceFloat);
     dataa.append('company_id', company_id);
+    try {
+      await api.post(`/finances`, dataa);
 
-    await api
-      .post(`/finances`, dataa)
-      .then(() => {
-        loadFinance();
-        toast.success(`Pagamento cadastrado com sucesso!`);
+      loadFinance();
+      toast.success(`Pagamento cadastrado com sucesso!`);
 
-        setPrice('');
-        resetForm();
-        setPreview(null);
-      })
-      .catch(error => {
-        const str = error.toString();
-        const final = str.replace(/\D/g, '');
+      setPrice('');
+      resetForm();
+      setPreview(null);
+    } catch (error) {
+      const str = error.toString();
+      const final = str.replace(/\D/g, '');
 
-        if (final === '400') {
-          toast.error(
-            'Não foi possível cadastrar o pagamento, tente novamente!'
-          );
-        }
+      if (final === '400') {
+        toast.error('Não foi possível cadastrar o pagamento, tente novamente!');
+      }
 
-        setPrice('');
-        setPreview(null);
-      });
+      setPrice('');
+      setPreview(null);
+    }
   }
 
   useEffect(() => {
@@ -242,11 +237,7 @@ export default function Financeiro() {
     setPrice(e.target.value);
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <Container>
       <Logo>
         <label>
@@ -300,7 +291,7 @@ export default function Financeiro() {
         </ValorInput>
 
         <hr />
-        <button type="submit">Salvar comprovante</button>
+        <button type="submit">{loading ? 'Carregando ...' : 'Salvar'}</button>
       </Form>
 
       <Content>

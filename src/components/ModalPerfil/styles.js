@@ -130,8 +130,9 @@ export const Actions = styled.div`
     background: #78f89f;
     border-radius: 5px;
     padding: 0.5rem 1rem;
-    font-size: 0.8rem;
+    font-size: 1.4rem;
     line-height: 1;
+    height: 40px;
     width: 120px;
     margin-left: 10px;
   }

@@ -8,8 +8,6 @@ export default function Menu({ profile }) {
   const [group, setGroup] = useState(false);
   const [admin, setAdmin] = useState(false);
 
-  console.log(' profile.group_users:: ', profile.group_users);
-
   useMemo(() => {
     const load = () => {
       profile.group_users.forEach(g => {

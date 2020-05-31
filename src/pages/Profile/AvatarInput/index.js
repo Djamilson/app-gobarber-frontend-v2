@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { MdPhoto } from 'react-icons/md';
-import { useField } from '@rocketseat/unform';
 
 import { signInFaileru } from '~/store/modules/user/actions';
 
@@ -13,20 +12,11 @@ import { createImage, updateImage } from '~/store/modules/user/actions';
 
 import Loading from '~/components/Loading';
 
-import {
-  Container,
-  ItemAvatar,
-  Item,
-  ContaineIcon,
-} from './styles';
+import { Container, ItemAvatar, Item, ContaineIcon } from './styles';
 
 import api from '~/_services/api';
 
 export default function AvatarInput() {
-  const { defaultValue, registerField } = useField('avatar');
-
-  const ref = useRef();
-
   const dispatch = useDispatch();
   const loading_ = useSelector(state => state.user.loading);
 
@@ -38,8 +28,6 @@ export default function AvatarInput() {
   const [image, setImage] = useState({ preview: '', file: '', id_file: '' });
 
   async function loadSchedule() {
-    console.log('profile: Init ', profile);
-
     if (!!profile.avatar) {
       const { id, url } = profile.avatar;
       setImage({
@@ -52,20 +40,6 @@ export default function AvatarInput() {
   useEffect(() => {
     loadSchedule();
   }, [profile]);
-
-  useEffect(() => {
-    const fetchUsers = () => {
-      if (ref.current) {
-        registerField({
-          name: 'avatar_id',
-          ref: ref.current,
-          path: 'dataset.file',
-        });
-      }
-    };
-
-    fetchUsers();
-  }, [ref, registerField]);
 
   async function handleChange(e) {
     const data = new FormData();

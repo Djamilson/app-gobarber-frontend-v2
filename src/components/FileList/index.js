@@ -30,7 +30,6 @@ import {
 export default function FileList({ files, handleChamaDelete }) {
   function getAvatar(avatar) {
     if (avatar) return `${avatar.url}-sm`;
-
     return 'https://api.adorable.io/avatars/50/abott@adorable.png';
   }
 
