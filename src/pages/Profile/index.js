@@ -20,8 +20,8 @@ export default function Profile() {
 
   return (
     <Container>
+      <AvatarInput />
       <Form initialData={profile} onSubmit={handleSubmit}>
-        <AvatarInput />
         <div>
           <Input name="name" placeholder="Nome completo" />
           <label>

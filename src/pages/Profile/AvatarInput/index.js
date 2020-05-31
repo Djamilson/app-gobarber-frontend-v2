@@ -12,7 +12,7 @@ import { createImage, updateImage } from '~/store/modules/user/actions';
 
 import Loading from '~/components/Loading';
 
-import { Container, ItemAvatar, Item, ContaineIcon } from './styles';
+import { Avatar, ItemAvatar, Item, ContaineIcon } from './styles';
 
 import api from '~/_services/api';
 
@@ -65,7 +65,7 @@ export default function AvatarInput() {
   }
 
   return (
-    <Container>
+    <Avatar>
       <section>
         <ItemAvatar color={color}>
           <span>
@@ -95,8 +95,8 @@ export default function AvatarInput() {
             </label>
           </span>
         </ItemAvatar>
-        <Item>{(loading_ === true || loading === true) && <Loading />}</Item>
       </section>
-    </Container>
+      <Item>{(loading_ === true || loading === true) && <Loading />}</Item>
+    </Avatar>
   );
 }
