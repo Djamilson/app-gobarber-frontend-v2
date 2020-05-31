@@ -45,7 +45,8 @@ export const ItemAvatar = styled.div`
   }
 `;
 
-export const ContaineIcon = styled.div`
+export const ContaineIcon = styled.p`
+  margin-top: 35px;
   display: flex;
   justify-content: center;
   align-items: center;
