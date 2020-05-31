@@ -44,23 +44,23 @@ export default function AvatarInput() {
   async function handleChange(e) {
     const data = new FormData();
     data.append('file', e.target.files[0]);
+    try {
+      if (profile.avatar !== null) {
+        setLoading(true);
 
-    if (profile.avatar !== null) {
-      setLoading(true);
+        const avatar_id = profile.avatar === null ? '' : profile.avatar.id;
+        data.append('id', avatar_id);
 
-      const avatar_id = profile.avatar === null ? '' : profile.avatar.id;
-      data.append('id', avatar_id);
-
-      const res = await api.put(`files/${avatar_id}`, data);
-      dispatch(updateImage({ data: res.data }));
-      setLoading(false);
-    } else {
-      try {
+        const res = await api.put(`files/${avatar_id}`, data);
+        dispatch(updateImage({ data: res.data }));
+        setLoading(false);
+      } else {
         dispatch(createImage({ data }));
-      } catch (error) {
-        dispatch(signInFaileru());
-        toast.error('Erro no upload da imagem, tente novamente!');
       }
+    } catch (error) {
+      setLoading(false);
+      dispatch(signInFaileru());
+      toast.error('Erro no upload da imagem, tente novamente!');
     }
   }
 
