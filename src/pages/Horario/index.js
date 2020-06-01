@@ -10,10 +10,9 @@ import api from '~/_services/api';
 import Times from '~/components/Times';
 import ListHorario from '~/components/ListHorario';
 
-import Loading from '~/components/Loading';
+import Loading from '~/components/Loading1';
 
 import { Container } from './styles';
-import { ContatinerLoding } from '~/styles/components';
 
 const schema = Yup.object().shape({
   hora: Yup.number().required('Somente horas'),
@@ -22,6 +21,7 @@ const schema = Yup.object().shape({
 
 export default function Horario() {
   const [loading, setLoading] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
   const [horario, setHorario] = useState([]);
 
   async function loadHorario() {
@@ -52,36 +52,32 @@ export default function Horario() {
   const horarioSize = useMemo(() => horario.length, [horario]);
 
   async function handleSubmit(data) {
-    setLoading(true);
-    await api
-      .post(`horarios`, { data })
-      .then(() => {
-        setLoading(false);
-        toast.success(`Horário cadastrado com sucesso!`);
-        loadHorario();
-      })
-      .catch(err => {
-        setLoading(false);
-        const { stack } = err;
-        const finall = stack.split('status code ')[1].substring(0, 3);
+    setLoadingSubmit(true);
+    try {
+      await api.post(`horarios`, { data });
+      setLoadingSubmit(false);
+      toast.success(`Horário cadastrado com sucesso!`);
+      loadHorario();
+    } catch (err) {
+      setLoadingSubmit(false);
+      const { stack } = err;
+      const finall = stack.split('status code ')[1].substring(0, 3);
 
-        if (finall === '400') {
-          toast.error('Esse horário já está cadastrado!');
-        }
-      });
+      if (finall === '400') {
+        toast.error('Esse horário já está cadastrado!');
+      }
+    }
   }
 
-
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <Container>
+      <Loading isActive={loading} />
       <Form schema={schema} onSubmit={handleSubmit}>
         <Times />
         <hr />
-        <button type="submit">Salvar</button>
+        <button type="submit">
+          {loadingSubmit ? 'Salvando ...' : 'Salvar'}
+        </button>
       </Form>
       <ListHorario
         horarioSize={horarioSize}

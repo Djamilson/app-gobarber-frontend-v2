@@ -1,7 +1,6 @@
-import React, { useState} from 'react';
+import React, { useState } from 'react';
 
 import Loading from '~/components/Loading';
-import { ContatinerLoding } from '~/styles/components';
 import { FaUnlockAlt } from 'react-icons/fa';
 import { useSelector } from 'react-redux';
 
@@ -73,15 +72,11 @@ export default function NewPassword({ match, history }) {
       });
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <>
       <img src={logo} alt="GoBarber" />
       <span> Cadastre uma nova senha! </span>
-
+      <Loading isActive={loading} />
       <Form schema={schema} onSubmit={handleSubmit}>
         <div>
           <Input type="password" name="password" placeholder="Nova senha" />

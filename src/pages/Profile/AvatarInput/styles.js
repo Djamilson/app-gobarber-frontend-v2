@@ -1,13 +1,6 @@
 import styled from 'styled-components';
 import { colors } from '~/styles';
 
-export const Item = styled.h2`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-`;
-
 export const ItemAvatar = styled.div`
   width: 160px;
   height: 160px;

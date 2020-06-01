@@ -12,15 +12,15 @@ import { createImage, updateImage } from '~/store/modules/user/actions';
 
 import Loading from '~/components/Loading';
 
-import { Avatar, ItemAvatar, Item, ContaineIcon } from './styles';
+import { Avatar, ItemAvatar, ContaineIcon } from './styles';
 
 import api from '~/_services/api';
 
 export default function AvatarInput() {
   const dispatch = useDispatch();
-  const loading_ = useSelector(state => state.user.loading);
+  const loadingCriateImage = useSelector(state => state.user.loading);
+  const [loadingUpdateImage, setLoadingUpdateImage] = useState(false);
 
-  const [loading, setLoading] = useState(false);
   const inputRef = useRef();
   const profile = useSelector(state => state.user.profile);
   const [color] = useState(`${colors.serven}`);
@@ -46,19 +46,19 @@ export default function AvatarInput() {
     data.append('file', e.target.files[0]);
     try {
       if (profile.avatar !== null) {
-        setLoading(true);
+        setLoadingUpdateImage(true);
 
         const avatar_id = profile.avatar === null ? '' : profile.avatar.id;
         data.append('id', avatar_id);
 
         const res = await api.put(`files/${avatar_id}`, data);
         dispatch(updateImage({ data: res.data }));
-        setLoading(false);
+        setLoadingUpdateImage(false);
       } else {
         dispatch(createImage({ data }));
       }
     } catch (error) {
-      setLoading(false);
+      setLoadingUpdateImage(false);
       dispatch(signInFaileru());
       toast.error('Erro no upload da imagem, tente novamente!');
     }
@@ -96,7 +96,21 @@ export default function AvatarInput() {
           </span>
         </ItemAvatar>
       </section>
-      <Item>{(loading_ === true || loading === true) && <Loading />}</Item>
+      {loadingCriateImage === true && (
+        <Loading isActive={loadingCriateImage}>
+          Aguarde um momento, pois estamos redimensionado a imagem para vários
+          tamanhos, para ter uma melhor usabilidade em diferentes tipos de
+          dispositivos.
+        </Loading>
+      )}
+
+      {loadingUpdateImage === true && (
+        <Loading isActive={loadingUpdateImage}>
+          Aguarde um momento, pois estamos redimensionado a imagem para vários
+          tamanhos, para ter uma melhor usabilidade em diferentes tipos de
+          dispositivos.
+        </Loading>
+      )}
     </Avatar>
   );
 }

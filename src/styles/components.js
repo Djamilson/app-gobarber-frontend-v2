@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { Spinner } from '~/components/Loading/styles';
-
 export const Wrapper = styled.div`
   height: 100%;
   display: flex;
@@ -30,7 +28,4 @@ export const ContatinerLoding = styled.div`
   align-items: center;
   border: none;
   z-index: 10;
-  ${Spinner} {
-    height: 48px;
-  }
 `;
