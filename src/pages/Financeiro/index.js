@@ -159,11 +159,13 @@ export default function Financeiro() {
     dataa.append('priceFloat', priceFloat);
     dataa.append('company_id', company_id);
     try {
+      setLoading(true);
       await api.post(`/finances`, dataa);
 
       loadFinance();
       toast.success(`Pagamento cadastrado com sucesso!`);
 
+      setLoading(false);
       setPrice('');
       resetForm();
       setPreview(null);
@@ -171,6 +173,7 @@ export default function Financeiro() {
       const str = error.toString();
       const final = str.replace(/\D/g, '');
 
+      setLoading(false);
       if (final === '400') {
         toast.error('Não foi possível cadastrar o pagamento, tente novamente!');
       }
@@ -284,7 +287,7 @@ export default function Financeiro() {
             decimalScale={2}
             fixedDecimalScale
             onChange={e => handleOnChange(e)}
-          />{' '}
+          />
           <label>
             <FaDollarSign size="19" color="#fff" />
           </label>
