@@ -13,7 +13,6 @@ import logo from '~/assets/logo.svg';
 
 import { toast } from 'react-toastify';
 import api from '~/_services/api';
-import { ContatinerLoding } from '~/styles/components';
 
 import { ContentButtons } from './styles';
 
@@ -92,14 +91,11 @@ export default function ActiveAccount({ match, history }) {
       });
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <>
       <img src={logo} alt="GoBarber" />
       <span> Ativando sua conta </span>
+      <Loading isActive={loading} />
       <Form schema={schema} onSubmit={handleActiveAccount}>
         <div>
           <Input name="code_active" placeholder="Seu código de ativação!" />

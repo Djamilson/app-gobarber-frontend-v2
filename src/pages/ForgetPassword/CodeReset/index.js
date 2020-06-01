@@ -13,7 +13,6 @@ import { tokenInRequest } from '~/store/modules/token/actions';
 import Loading from '~/components/Loading';
 import logo from '~/assets/logo.svg';
 
-import { ContatinerLoding } from '~/styles/components';
 import { ContentButtons } from './styles';
 
 const schema = Yup.object().shape({
@@ -42,14 +41,11 @@ export default function CodeReset({ match, history }) {
     dispatch(tokenInRequest(newEmail, code_active));
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <>
       <img src={logo} alt="GoBarber" />
       <span> Valida o código </span>
+      <Loading isActive={loading} />
       <Form initialData={initialData} schema={schema} onSubmit={handleSubmit}>
         <div>
           <Input name="email" type="email" placeholder="Seu email" />

@@ -3,11 +3,11 @@ import { darken } from 'polished';
 
 export const Container = styled.div`
   max-width: 600px;
-  margin: 50px auto;
+  margin: 40px auto;
   form {
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
+    margin-top: 0px;
 
     input {
       background: rgba(0, 0, 0, 0.1);
@@ -85,31 +85,6 @@ export const Container = styled.div`
     &:hover {
       background: ${darken(0.08, '#f64c75')};
     }
-  }
-`;
-
-export const Content = styled.div`
-  max-width: 600px;
-  margin: 50px auto;
-
-  display: flex;
-  flex-direction: column;
-  header {
-    display: flex;
-    align-self: center;
-    align-items: center;
-  }
-
-  strong {
-    color: #fff;
-    font-size: 18px;
-  }
-
-  ul {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-gap: 10px;
-    margin-top: 30px;
   }
 `;
 

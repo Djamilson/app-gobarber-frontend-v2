@@ -11,8 +11,6 @@ import { FaEnvelope } from 'react-icons/fa';
 import api from '~/_services/api';
 import Loading from '~/components/Loading';
 
-import { ContatinerLoding } from '~/styles/components';
-
 import logo from '~/assets/logo.svg';
 
 const schema = Yup.object().shape({
@@ -51,14 +49,11 @@ export default function FormEmail({ history, match }) {
       });
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <>
       <img src={logo} alt="GoBarber" />
       <span> Recuperar Senha </span>
+      <Loading isActive={loading} />
       <Form schema={schema} onSubmit={handleSubmit}>
         <div>
           <Input name="email" type="email" placeholder="Seu email" />

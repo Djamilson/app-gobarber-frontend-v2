@@ -1,22 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { StyledLoader, Text } from './styles';
+import { StyledLoader } from './styles';
 
-export default function Loader({ isActive, children }) {
+export default function Loader1({ isActive }) {
   return (
     <StyledLoader
       active={isActive}
       classNamePrefix="MyLoader_"
       spinner
-      text="Loading ..."
-    >
-      <Text>{children}</Text>
-    </StyledLoader>
+      text="Carregando ..."
+    />
   );
 }
 
-Loader.propTypes = {
+Loader1.propTypes = {
   isActive: PropTypes.bool.isRequired,
   children: PropTypes.string,
 };

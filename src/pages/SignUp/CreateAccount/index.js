@@ -14,8 +14,6 @@ import logo from '~/assets/logo.svg';
 
 import { signUpRequest } from '~/store/modules/auth/actions';
 
-import { ContatinerLoding } from '~/styles/components';
-
 const schema = Yup.object().shape({
   name: Yup.string().required('O nome é obrigatório!'),
   email: Yup.string()
@@ -36,14 +34,11 @@ export default function SignUp() {
     dispatch(signUpRequest(name, email, password, cod_company));
   }
 
-  return loading ? (
-    <ContatinerLoding loading={loading.toString()}>
-      <Loading />
-    </ContatinerLoding>
-  ) : (
+  return (
     <>
       <img src={logo} alt="GoBarber" />
       <span> Criar conta </span>
+      <Loading isActive={loading} />
       <Form schema={schema} onSubmit={handleSubmit}>
         <div>
           <Input name="name" placeholder="Nome" />

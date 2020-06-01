@@ -20,7 +20,6 @@ import {
   Content,
   Avatar,
   ItemAvatar,
-  Item,
   ContaineIcon,
 } from './styles';
 import Loading from '~/components/Loading';
@@ -40,28 +39,34 @@ const schema = Yup.object().shape({
 
 export default function CompanyPerfil() {
   const idCompany = useSelector(state => state.user.profile.company_id);
-  
+
   const [company, setCompany] = useState({});
   const [image, setImage] = useState({ preview: '', idFile: '' });
 
-  const loading_ = useSelector(state => state.user.loading);
+  const [loadingUpdateImage, setLoadingUpdateImage] = useState(false);
+  const [loadingSubmit, setLoadingSubmit] = useState(false);
 
-  const [loading, setLoading] = useState(false);
   const inputRef = useRef();
   const profile = useSelector(state => state.user.profile);
   const [color] = useState(`${colors.serven}`);
 
   async function loadSchedule() {
-    const response = await api.get(`companyperfil/${idCompany}`);
+    try {
+      setLoadingSubmit(true);
+      const response = await api.get(`companyperfil/${idCompany}`);
 
-    setCompany(response.data);
+      setCompany(response.data);
 
-    if (!!response.data.logo) {
-      const { id, url } = response.data.logo;
-      setImage({
-        preview: `${url}-sm`,
-        idFile: id,
-      });
+      if (!!response.data.logo) {
+        const { id, url } = response.data.logo;
+        setImage({
+          preview: `${url}-sm`,
+          idFile: id,
+        });
+      }
+      setLoadingSubmit(false);
+    } catch (error) {
+      setLoadingSubmit(false);
     }
   }
 
@@ -70,35 +75,34 @@ export default function CompanyPerfil() {
   }, []);
 
   async function handleSubmit(data) {
-    await api
-      .put(`/companies`, { data })
-      .then(() => {
-        toast.success(`Empresa editada com sucesso!`);
+    try {
+      setLoadingSubmit(true);
+      await api.put(`/companies`, { data });
+      toast.success(`Empresa editada com sucesso!`);
+      setLoadingSubmit(false);
+      loadSchedule();
+    } catch (error) {
+      const str = error.toString();
+      const finall = str.replace(/\D/g, '');
+      setLoadingSubmit(false);
+      if (finall === '400') {
+        toast.error('Campos inválidos!');
+      }
 
-        loadSchedule();
-      })
-      .catch(error => {
-        const str = error.toString();
-        const finall = str.replace(/\D/g, '');
+      if (finall === '401') {
+        toast.error('Não foi possível fazer o cadastro da empresa!');
+      }
 
-        if (finall === '400') {
-          toast.error('Campos inválidos!');
-        }
+      if (finall === '402') {
+        toast.error(
+          'Não foi possível adicionar o usuário como administrador do sistema!'
+        );
+      }
 
-        if (finall === '401') {
-          toast.error('Não foi possível fazer o cadastro da empresa!');
-        }
-
-        if (finall === '402') {
-          toast.error(
-            'Não foi possível adicionar o usuário como administrador do sistema!'
-          );
-        }
-
-        if (finall === '403') {
-          toast.error('Não foi possível associar o usuário ao grupo!');
-        }
-      });
+      if (finall === '403') {
+        toast.error('Não foi possível associar o usuário ao grupo!');
+      }
+    }
   }
 
   async function handleChange(e) {
@@ -106,11 +110,10 @@ export default function CompanyPerfil() {
     data.append('file', e.target.files[0]);
 
     try {
-      setLoading(true);
+      setLoadingUpdateImage(true);
       const { idFile } = image;
       data.append('id', idFile);
 
-      setLoading(true);
       const res = await api.put(`company/update/files/${idCompany}`, data);
 
       const { _id, url } = res.data;
@@ -120,9 +123,9 @@ export default function CompanyPerfil() {
         idFile: _id,
       });
 
-      setLoading(false);
+      setLoadingUpdateImage(false);
     } catch (error) {
-      setLoading(false);
+      setLoadingUpdateImage(false);
       toast.error('Erro no upload da imagem, tente novamente!');
     }
   }
@@ -163,7 +166,14 @@ export default function CompanyPerfil() {
             </span>
           </ItemAvatar>
         </section>
-        <Item>{(loading_ === true || loading === true) && <Loading />}</Item>
+
+        {loadingUpdateImage === true && (
+          <Loading isActive={loadingUpdateImage}>
+            Aguarde um momento, pois estamos redimensionado a imagem para vários
+            tamanhos, para ter uma melhor usabilidade em diferentes tipos de
+            dispositivos.
+          </Loading>
+        )}
       </Avatar>
 
       <Form initialData={company} schema={schema} onSubmit={handleSubmit}>
@@ -208,7 +218,9 @@ export default function CompanyPerfil() {
           </label>
         </div>
 
-        <button type="submit">Editar</button>
+        <button type="submit">
+          {loadingSubmit ? 'Atualizando ...' : 'Atualizar dados'}
+        </button>
       </Form>
     </Container>
   );
