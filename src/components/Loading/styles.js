@@ -10,5 +10,6 @@ to{
 `;
 
 export const Spinner = styled.img`
+  z-index: 9;
   animation: ${rotate360} 2s linear infinite;
 `;
