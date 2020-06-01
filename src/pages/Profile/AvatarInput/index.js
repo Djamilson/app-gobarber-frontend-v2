@@ -99,16 +99,14 @@ export default function AvatarInput() {
       {loadingCriateImage === true && (
         <Loading isActive={loadingCriateImage}>
           Aguarde um momento, pois estamos redimensionado a imagem para vários
-          tamanhos, para ter uma melhor usabilidade em diferentes tipos de
-          dispositivos.
+          tamanhos, para ter uma melhor usabilidade em diferentes dispositivos.
         </Loading>
       )}
 
       {loadingUpdateImage === true && (
         <Loading isActive={loadingUpdateImage}>
           Aguarde um momento, pois estamos redimensionado a imagem para vários
-          tamanhos, para ter uma melhor usabilidade em diferentes tipos de
-          dispositivos.
+          tamanhos, para ter uma melhor usabilidade em diferentes dispositivos.
         </Loading>
       )}
     </Avatar>
